@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Об Эндаумент-фонде" />
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Расписание занятий (?)" />
+        <item
+            android:id="@+id/nav_cabinets"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Расположение аудиторий (?)" />
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Новости" />
+        <item
+            android:id="@+id/nav_events"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Меропрития" />
+        <item
+            android:id="@+id/nav_discounts"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Скидки" />
+        <item
+            android:id="@+id/nav_faq"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Задать вопрос" />
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Календарь" />
+    </group>
+
+</menu>
