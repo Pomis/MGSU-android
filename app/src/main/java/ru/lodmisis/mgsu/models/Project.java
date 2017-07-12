@@ -26,6 +26,7 @@ import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.base.BasePlaceHolder;
 
 @Animate(Animation.SCALE_UP_ASC)
+//@Animate(Animation.CARD_TOP_IN_DESC)
 //@NonReusable
 @Layout(R.layout.item_project)
 public class Project{// extends BasePlaceHolder {

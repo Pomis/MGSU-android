@@ -58,6 +58,10 @@ public class ProjectsFragment extends BaseFragment {
                     prj.mPlaceHolderView = phvProjects;
                     prj.name = item.name;
                     phvProjects.addView(prj);
+                    phvProjects.addView(prj);
+                    phvProjects.addView(prj);
+                    phvProjects.animate();
+                    phvProjects.refresh();
 
                 });
     }
