@@ -7,17 +7,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 
+import com.mindorks.placeholderview.PlaceHolderView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.base.BaseFragment;
+import ru.lodmisis.mgsu.models.Project;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ProjectsFragment extends BaseFragment {
 
+    @BindView(R.id.phv_projects)
+    PlaceHolderView phvProjects;
 
     public ProjectsFragment() {
         // Required empty public constructor
@@ -28,7 +35,9 @@ public class ProjectsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_projects, container, false);
+        View v = inflater.inflate(R.layout.fragment_projects, container, false);
+        ButterKnife.bind(this, v);
+        return v;
     }
 
     @Override
@@ -38,12 +47,19 @@ public class ProjectsFragment extends BaseFragment {
     }
 
     private void loadProjects() {
-        api.getCurrentUser().subscribeOn(Schedulers.newThread())
+        api.getProjects().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
-                .subscribe(list -> {
-                    System.out.println("COOKI");
-                    System.out.println(list.firstName);
+                .flatMap(Observable::fromIterable)
+                .subscribe(item -> {
+
+                    Project prj = new Project();
+                    prj.mContext = getContext();
+                    prj.mPlaceHolderView = phvProjects;
+                    prj.name = item.name;
+                    phvProjects.addView(prj);
+
                 });
     }
+
 }

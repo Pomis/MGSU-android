@@ -7,7 +7,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "ru.lodmisis.mgsu"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -54,6 +54,8 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.sothree.slidinguppanel:library:3.3.1'
     compile 'jp.wasabeef:recyclerview-animators:2.2.7'
+    compile 'com.mindorks:placeholderview:0.6.4'
+
 
 
     testCompile 'junit:junit:4.12'

@@ -5,19 +5,54 @@ package ru.lodmisis.mgsu.models;
  */
 
 
+import android.content.Context;
+import android.widget.TextView;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mindorks.placeholderview.Animation;
+import com.mindorks.placeholderview.PlaceHolderView;
+import com.mindorks.placeholderview.annotations.Animate;
+import com.mindorks.placeholderview.annotations.Layout;
+import com.mindorks.placeholderview.annotations.NonReusable;
+import com.mindorks.placeholderview.annotations.Resolve;
+import com.mindorks.placeholderview.annotations.View;
 
-public class Project {
+import butterknife.OnItemClick;
+import io.realm.RealmModel;
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import ru.lodmisis.mgsu.R;
+import ru.lodmisis.mgsu.base.BasePlaceHolder;
 
+@Animate(Animation.SCALE_UP_ASC)
+//@NonReusable
+@Layout(R.layout.item_project)
+public class Project{// extends BasePlaceHolder {
+
+//    @Ignore
+    transient public Context mContext;
+
+//    @Ignore
+    transient public PlaceHolderView mPlaceHolderView;
+
+
+    public Project(){}
+
+    public Object content;
     public String id;
+
+    @View(R.id.tv_title)
+    transient public TextView tvName;
+
     public String name;
+
     public String direction;
     public Double need;
     public Double given;
     public String shortDescription;
-    public Object content;
-    public ImageModel img;
+
+    //public ImageModel img;
 
     @Expose
     @SerializedName("public")
@@ -25,4 +60,13 @@ public class Project {
 
     public String creatingDate;
 
+    @Resolve
+    private void onResolved() {
+        tvName.setText(name);
+        // Glide.with(mContext).load(mUrl).into(imageView);
+    }
+
+    @OnItemClick
+    public void onItemClick() {
+    }
 }
