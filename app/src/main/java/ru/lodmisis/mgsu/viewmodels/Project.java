@@ -1,4 +1,4 @@
-package ru.lodmisis.mgsu.models;
+package ru.lodmisis.mgsu.viewmodels;
 
 /**
  * Created by romanismagilov on 12.07.17.
@@ -14,20 +14,13 @@ import com.mindorks.placeholderview.Animation;
 import com.mindorks.placeholderview.PlaceHolderView;
 import com.mindorks.placeholderview.annotations.Animate;
 import com.mindorks.placeholderview.annotations.Layout;
-import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
 import butterknife.OnItemClick;
-import io.realm.RealmModel;
-import io.realm.RealmObject;
-import io.realm.annotations.Ignore;
 import ru.lodmisis.mgsu.R;
-import ru.lodmisis.mgsu.base.BasePlaceHolder;
 
 @Animate(Animation.SCALE_UP_ASC)
-//@Animate(Animation.CARD_TOP_IN_DESC)
-//@NonReusable
 @Layout(R.layout.item_project)
 public class Project{// extends BasePlaceHolder {
 
@@ -53,7 +46,7 @@ public class Project{// extends BasePlaceHolder {
     public Double given;
     public String shortDescription;
 
-    //public ImageModel img;
+    public ImageModel img;
 
     @Expose
     @SerializedName("public")

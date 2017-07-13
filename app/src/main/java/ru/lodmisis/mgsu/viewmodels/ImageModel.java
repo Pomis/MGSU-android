@@ -1,4 +1,4 @@
-package ru.lodmisis.mgsu.models;
+package ru.lodmisis.mgsu.viewmodels;
 
 public class ImageModel {
 

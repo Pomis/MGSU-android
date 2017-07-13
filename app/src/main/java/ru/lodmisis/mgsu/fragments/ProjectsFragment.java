@@ -3,12 +3,9 @@ package ru.lodmisis.mgsu.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 
 import com.mindorks.placeholderview.PlaceHolderView;
 
@@ -19,8 +16,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.base.BaseFragment;
-import ru.lodmisis.mgsu.models.Project;
-
+import ru.lodmisis.mgsu.viewmodels.Project;
+/*
+ * Проекты из описания
+ */
 public class ProjectsFragment extends BaseFragment {
 
     @BindView(R.id.phv_projects)

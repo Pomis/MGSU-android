@@ -1,4 +1,4 @@
-package ru.lodmisis.mgsu.models;
+package ru.lodmisis.mgsu.viewmodels;
 
 /**
  * Created by romanismagilov on 12.07.17.

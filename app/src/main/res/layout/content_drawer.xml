@@ -11,6 +11,6 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="ru.lodmisis.mgsu.fragments.ProjectsFragment"
+        android:name="ru.lodmisis.mgsu.fragments.EndowmentFragment"
         android:id="@+id/f_projects"/>
 </android.support.constraint.ConstraintLayout>
