@@ -53,7 +53,7 @@ public class EndowmentFragment extends Fragment {
                 .create());
 
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(1);
+//        viewPager.setCurrentItem(1);
         viewPagerTab.setViewPager(viewPager);
     }
 

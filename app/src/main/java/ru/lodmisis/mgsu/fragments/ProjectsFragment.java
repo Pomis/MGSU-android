@@ -52,14 +52,9 @@ public class ProjectsFragment extends BaseFragment {
                 .flatMap(Observable::fromIterable)
                 .subscribe(item -> {
 
-                    Project prj = new Project();
-                    prj.mContext = getContext();
-                    prj.mPlaceHolderView = phvProjects;
-                    prj.name = item.name;
-                    phvProjects.addView(prj);
-                    phvProjects.addView(prj);
-                    phvProjects.addView(prj);
-                    phvProjects.animate();
+                    item.mContext = getContext();
+                    item.mPlaceHolderView = phvProjects;
+                    phvProjects.addView(item);
                     phvProjects.refresh();
 
                 });

@@ -8,9 +8,6 @@ import com.mindorks.placeholderview.annotations.View;
 
 import ru.lodmisis.mgsu.R;
 
-/**
- * Created by romanismagilov on 13.07.17.
- */
 
 @Layout(R.layout.item_enum)
 public class Enumeration {
@@ -23,5 +20,9 @@ public class Enumeration {
     @Resolve
     private void onResolved() {
         tvText.setText(text);
+    }
+
+    public Enumeration(String text) {
+        this.text = text;
     }
 }

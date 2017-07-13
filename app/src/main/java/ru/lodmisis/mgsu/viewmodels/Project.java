@@ -6,8 +6,10 @@ package ru.lodmisis.mgsu.viewmodels;
 
 
 import android.content.Context;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mindorks.placeholderview.Animation;
@@ -22,7 +24,7 @@ import ru.lodmisis.mgsu.R;
 
 @Animate(Animation.SCALE_UP_ASC)
 @Layout(R.layout.item_project)
-public class Project{// extends BasePlaceHolder {
+public class Project {
 
 //    @Ignore
     transient public Context mContext;
@@ -37,7 +39,10 @@ public class Project{// extends BasePlaceHolder {
     public String id;
 
     @View(R.id.tv_title)
-    transient public TextView tvName;
+    transient TextView tvName;
+
+    @View(R.id.iv_row_project)
+    transient ImageView ivPic;
 
     public String name;
 
@@ -57,7 +62,7 @@ public class Project{// extends BasePlaceHolder {
     @Resolve
     private void onResolved() {
         tvName.setText(name);
-        // Glide.with(mContext).load(mUrl).into(imageView);
+        Glide.with(mContext).load(img.getOriginal()).into(ivPic);
     }
 
     @OnItemClick
