@@ -25,15 +25,12 @@ public class ProjectsFragment extends BaseFragment {
     @BindView(R.id.phv_projects)
     PlaceHolderView phvProjects;
 
-    public ProjectsFragment() {
-        // Required empty public constructor
-    }
+    public ProjectsFragment() {}
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_projects, container, false);
         ButterKnife.bind(this, v);
         return v;

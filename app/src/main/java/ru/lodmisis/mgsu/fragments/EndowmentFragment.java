@@ -48,7 +48,7 @@ public class EndowmentFragment extends Fragment {
         FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(
                 getActivity().getSupportFragmentManager(), FragmentPagerItems.with(getActivity())
                 .add("Миссия", MissionFragment.class)
-                .add("Цели", MissionFragment.class)
+                .add("Цели", TargetsFragment.class)
                 .add("Проекты", ProjectsFragment.class)
                 .create());
 
