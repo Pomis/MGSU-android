@@ -2,6 +2,7 @@ package ru.lodmisis.mgsu.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -42,9 +43,8 @@ public class EndowmentFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(
                 getActivity().getSupportFragmentManager(), FragmentPagerItems.with(getActivity())
                 .add("Миссия", MissionFragment.class)
@@ -56,5 +56,6 @@ public class EndowmentFragment extends Fragment {
 //        viewPager.setCurrentItem(1);
         viewPagerTab.setViewPager(viewPager);
     }
+
 
 }

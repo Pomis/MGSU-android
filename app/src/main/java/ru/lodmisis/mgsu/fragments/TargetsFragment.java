@@ -2,6 +2,7 @@ package ru.lodmisis.mgsu.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,8 +39,8 @@ public class TargetsFragment extends Fragment {
 
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         phvAims.addView(new Enumeration("поддержка студентов (образование, помощь в трудоустройстве, спорт, культурно-массовые мероприятия);"));
         phvAims.addView(new Enumeration("поддержка профессорско-преподавательского состава;"));
         phvAims.addView(new Enumeration("поддержка научно-исследовательской деятельности;"));

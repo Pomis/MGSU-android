@@ -1,8 +1,10 @@
 package ru.lodmisis.mgsu.viewmodels;
 
+import java.io.Serializable;
+
 import ru.lodmisis.mgsu.Settings;
 
-public class ImageModel {
+public class ImageModel implements Serializable{
 
     private String small = "";
 

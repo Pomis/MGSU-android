@@ -5,6 +5,8 @@
     tools:context="ru.lodmisis.mgsu.fragments.ProjectsFragment">
 
     <com.mindorks.placeholderview.PlaceHolderView
+        android:paddingTop="48dp"
+        android:clickable="true"
         android:id="@+id/phv_projects"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -41,8 +41,8 @@ public class MissionFragment extends Fragment {
 
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         phvAims.addView(new Enumeration("обеспечение комплексного развития университета;"));
         phvAims.addView(new Enumeration("поддержка молодых специалистов, ученых, преподавателей;"));
         phvAims.addView(new Enumeration("возрождение деятельности Ассоциации выпускников (АВ) МГСУ-МИСИ;"));
@@ -50,5 +50,6 @@ public class MissionFragment extends Fragment {
         phvAims.addView(new Enumeration("подготовка и реализация различных масштабных проектов;"));
         phvAims.addView(new Enumeration("подготовка университета к главному событию – 100-летие НИУ МГСУ."));
     }
+
 
 }

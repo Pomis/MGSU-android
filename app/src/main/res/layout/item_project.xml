@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_project"
     android:layout_width="match_parent"
+    android:layout_height="210dp"
+    android:layout_gravity="center"
+    android:layout_marginBottom="4dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
-    android:layout_height="210dp"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    card_view:cardElevation="4dp"
     android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
-    android:layout_gravity="center">
+    android:clickable="true"
+    android:descendantFocusability="blocksDescendants"
+    android:foreground="?android:selectableItemBackground"
+    card_view:cardElevation="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:background="#987"
             android:id="@+id/iv_row_project"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="#987"
+            android:scaleType="centerCrop" />
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_above="@+id/tv_row_descr"
+            android:layout_alignParentLeft="true"
             android:background="#66000000"
             android:paddingLeft="16dp"
             android:textColor="#fff"
             android:textSize="22dp" />
+
         <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
             android:id="@+id/tv_row_descr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:textColor="#fff"
-            android:paddingBottom="16dp"
             android:background="#66000000"
+            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:text=""
-            />
+            android:textColor="#fff" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
