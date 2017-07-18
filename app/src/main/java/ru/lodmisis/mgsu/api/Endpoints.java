@@ -6,6 +6,8 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import ru.lodmisis.mgsu.viewmodels.EventModel;
 import ru.lodmisis.mgsu.viewmodels.NewsModel;
 import ru.lodmisis.mgsu.viewmodels.ProjectModel;
 import ru.lodmisis.mgsu.viewmodels.User;
@@ -30,4 +32,9 @@ public interface Endpoints {
     @GET("/user/current")
     Observable<User> getCurrentUser();
 
+    @GET("/events/{year}/{month}")
+    Observable<List<EventModel>> getMyEvents(
+        @Path("month") int month,
+        @Path("year") int year
+    );
 }

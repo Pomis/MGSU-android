@@ -7,6 +7,8 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mindorks.placeholderview.PlaceHolderView;
+import com.mindorks.placeholderview.SwipePlaceHolderView;
+import com.mindorks.placeholderview.annotations.Layout;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,8 +19,8 @@ import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 import ru.lodmisis.mgsu.R;
 
-
-public class EventModel extends RealmObject implements Serializable {
+@Layout(R.layout.item_event)
+public class EventModel implements Serializable {
     @Ignore
     transient public Context mContext;
 
@@ -52,4 +54,5 @@ public class EventModel extends RealmObject implements Serializable {
                 startDate.getTime()
         );
     }
+
 }

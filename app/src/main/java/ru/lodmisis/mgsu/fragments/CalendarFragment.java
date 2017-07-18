@@ -1,7 +1,6 @@
 package ru.lodmisis.mgsu.fragments;
 
 
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.mindorks.placeholderview.PlaceHolderView;
+import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,9 +28,13 @@ import ru.lodmisis.mgsu.viewmodels.EventModel;
  */
 public class CalendarFragment extends BaseFragment {
 
+    ArrayList<EventModel> eventModels;
+
     @BindView(R.id.ccv_calendar)
     CompactCalendarView compactCalendarView;
 
+    @BindView(R.id.phv_events)
+    PlaceHolderView phvEvents;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -51,6 +55,7 @@ public class CalendarFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         updateTitle();
         addTestEvents();
+        drawLists();
     }
 
     private void updateTitle() {
@@ -60,12 +65,13 @@ public class CalendarFragment extends BaseFragment {
     }
 
     private void addTestEvents() {
-        ArrayList<EventModel> eventModels = new ArrayList<>();
+        eventModels = new ArrayList<>();
         Date today = new Date();
 
         EventModel kek = new EventModel();
         kek.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 24));
         kek.isInternal = true;
+        kek.mPlaceHolderView = phvEvents;
         kek.mContext = getContext();
         eventModels.add(kek);
         eventModels.add(kek);
@@ -73,6 +79,7 @@ public class CalendarFragment extends BaseFragment {
         EventModel ke1k = new EventModel();
         ke1k.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 125));
         ke1k.isInternal = false;
+        ke1k.mPlaceHolderView = phvEvents;
         ke1k.mContext = getContext();
 
         eventModels.add(ke1k);
@@ -80,5 +87,11 @@ public class CalendarFragment extends BaseFragment {
         for (EventModel eventModel : eventModels) {
             compactCalendarView.addEvent(eventModel.toCalendarEvent());
         }
+    }
+
+    private void drawLists() {
+        eventModels.forEach(eventModel -> {
+            phvEvents.addView(eventModel);
+        });
     }
 }
