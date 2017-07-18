@@ -1,0 +1,63 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_faqs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cv_mail"
+            android:layout_width="match_parent"
+            card_view:cardCornerRadius="3dp"
+            android:layout_height="64dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_address"
+                    android:layout_height="48dp"
+                    android:layout_width="48dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/emailicon" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/iv_address"
+                    android:layout_toRightOf="@+id/iv_address"
+                    android:padding="8dp"
+                    android:text="Задать вопрос"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_maps"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/iv_address"
+                    android:layout_toRightOf="@+id/iv_address"
+                    android:padding="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="ef@misis.ru" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <!--<View style="@style/hr" />-->
+
+        <!--<TextView-->
+            <!--style="@style/TextHeader"-->
+            <!--android:text="Часто задаваемые вопросы" />-->
+
+        <!--<View style="@style/hr" android:layout_marginBottom="8dp" />-->
+
+
+    </LinearLayout>
+</ScrollView>

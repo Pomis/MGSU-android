@@ -2,9 +2,10 @@ package ru.lodmisis.mgsu.viewmodels;
 
 import java.io.Serializable;
 
+import io.realm.RealmObject;
 import ru.lodmisis.mgsu.Settings;
 
-public class ImageModel implements Serializable{
+public class ImageModel extends RealmObject implements Serializable{
 
     private String small = "";
 

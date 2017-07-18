@@ -1,4 +1,4 @@
-package ru.lodmisis.mgsu.bodies;
+package ru.lodmisis.mgsu.api;
 
 /**
  * Created by romanismagilov on 12.07.17.
@@ -11,6 +11,6 @@ public class AuthBody {
         Password = password;
     }
 
-    private String Email = "";
-    private String Password = "";
+    private String Email;
+    private String Password;
 }

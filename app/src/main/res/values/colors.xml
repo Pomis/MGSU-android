@@ -6,4 +6,5 @@
     <color name="black">#111</color>
     <color name="titleColor">#333</color>
     <color name="colorWhite">#fff</color>
+    <color name="colorInverse">#6d70cb</color>
 </resources>

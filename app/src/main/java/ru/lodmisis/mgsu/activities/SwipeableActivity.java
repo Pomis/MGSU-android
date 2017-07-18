@@ -4,18 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.liuguangqiang.swipeback.SwipeBackActivity;
-import com.liuguangqiang.swipeback.SwipeBackLayout;
 
 import java.io.Serializable;
 
 import ru.lodmisis.mgsu.R;
-import ru.lodmisis.mgsu.fragments.AuthFragment;
 import ru.lodmisis.mgsu.fragments.ProjectFragment;
-import ru.lodmisis.mgsu.viewmodels.Project;
+import ru.lodmisis.mgsu.viewmodels.ProjectModel;
 
 public class SwipeableActivity extends SwipeBackActivity {
 
@@ -38,8 +35,8 @@ public class SwipeableActivity extends SwipeBackActivity {
         Serializable model = getIntent().getExtras().getSerializable("model");
         Fragment currentFragment = new Fragment();
         FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
-        if (model instanceof Project) {
-            currentFragment = new ProjectFragment().setProject((Project) model);
+        if (model instanceof ProjectModel) {
+            currentFragment = new ProjectFragment().setProject((ProjectModel) model);
         }
         fTrans.add(R.id.fl_container, currentFragment, "current");
         fTrans.commit();

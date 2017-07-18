@@ -19,7 +19,6 @@
             android:title="Расположение аудиторий (?)" />
         <item
             android:id="@+id/nav_news"
-            android:enabled="false"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Новости" />
         <item
@@ -33,12 +32,10 @@
             android:title="Скидки" />
         <item
             android:id="@+id/nav_faq"
-            android:enabled="false"
             android:icon="@drawable/ic_menu_manage"
             android:title="Задать вопрос" />
         <item
             android:id="@+id/nav_calendar"
-            android:enabled="false"
             android:icon="@drawable/ic_menu_manage"
             android:title="Календарь" />
     </group>

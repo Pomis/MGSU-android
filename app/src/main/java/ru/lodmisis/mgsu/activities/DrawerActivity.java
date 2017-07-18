@@ -22,8 +22,11 @@ import android.widget.Toast;
 import java.util.Stack;
 
 import ru.lodmisis.mgsu.R;
+import ru.lodmisis.mgsu.fragments.CalendarFragment;
 import ru.lodmisis.mgsu.fragments.EndowmentFragment;
 import ru.lodmisis.mgsu.fragments.EventsFragment;
+import ru.lodmisis.mgsu.fragments.FAQFragment;
+import ru.lodmisis.mgsu.fragments.NewsFragment;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,9 +82,6 @@ public class DrawerActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -122,11 +122,25 @@ public class DrawerActivity extends AppCompatActivity
             fTrans.detach(fragment);
 //        currentTab = id;
         switch (id) {
+
             case R.id.nav_about:
                 fragment = new EndowmentFragment();
                 break;
+
+            case R.id.nav_news:
+                fragment = new NewsFragment();
+                break;
+
             case R.id.nav_events:
                 fragment = new EventsFragment();
+                break;
+
+            case R.id.nav_faq:
+                fragment = new FAQFragment();
+                break;
+
+            case R.id.nav_calendar:
+                fragment = new CalendarFragment();
                 break;
 
 

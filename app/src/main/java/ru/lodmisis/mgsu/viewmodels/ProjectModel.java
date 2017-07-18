@@ -1,8 +1,5 @@
 package ru.lodmisis.mgsu.viewmodels;
 
-/**
- * Created by romanismagilov on 12.07.17.
- */
 
 
 import android.content.Context;
@@ -29,7 +26,7 @@ import ru.lodmisis.mgsu.activities.SwipeableActivity;
 
 @Animate(Animation.SCALE_UP_ASC)
 @Layout(R.layout.item_project)
-public class Project implements Serializable{
+public class ProjectModel implements Serializable{
 
 //    @Ignore
     transient public Context mContext;
@@ -38,7 +35,7 @@ public class Project implements Serializable{
     transient public PlaceHolderView mPlaceHolderView;
 
 
-    public Project(){}
+    public ProjectModel(){}
 
     public String content;
     public String id;

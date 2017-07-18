@@ -8,22 +8,14 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.lodmisis.mgsu.api.Endpoints;
-import ru.lodmisis.mgsu.api.JSONConverterFactory;
 
 
 public class App extends Application {

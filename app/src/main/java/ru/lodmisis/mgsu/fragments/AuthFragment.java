@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.activities.DrawerActivity;
 import ru.lodmisis.mgsu.base.BaseFragment;
-import ru.lodmisis.mgsu.bodies.AuthBody;
+import ru.lodmisis.mgsu.api.AuthBody;
 
 /**
  * A simple {@link Fragment} subclass.

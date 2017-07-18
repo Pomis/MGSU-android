@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.canvas.DonationView;
-import ru.lodmisis.mgsu.viewmodels.Project;
+import ru.lodmisis.mgsu.viewmodels.ProjectModel;
 
 
 /**
@@ -39,9 +39,9 @@ public class ProjectFragment extends Fragment {
     @BindView(R.id.tv_full_description)
     TextView tvDescr;
 
-    Project project;
+    ProjectModel project;
 
-    public ProjectFragment setProject(Project project) {
+    public ProjectFragment setProject(ProjectModel project) {
         this.project = project;
         return this;
     }

@@ -3,6 +3,7 @@ package ru.lodmisis.mgsu.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,33 +18,36 @@ import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.base.BaseFragment;
 
-/*
- * Проекты из описания
+/**
+ * A simple {@link Fragment} subclass.
  */
-public class ProjectsFragment extends BaseFragment {
+public class NewsFragment extends BaseFragment {
 
     @BindView(R.id.phv_projects)
     PlaceHolderView phvProjects;
 
-    public ProjectsFragment() {}
+    public NewsFragment() {
+        // Required empty public constructor
+    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_projects, container, false);
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, v);
         return v;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loadProjects();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadPosts();
     }
 
-    private void loadProjects() {
-        api.getProjects().subscribeOn(Schedulers.newThread())
+    private void loadPosts() {
+        api.getPosts().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
                 .flatMap(Observable::fromIterable)
@@ -55,6 +59,6 @@ public class ProjectsFragment extends BaseFragment {
                     phvProjects.refresh();
 
                 });
-    }
 
+    }
 }
