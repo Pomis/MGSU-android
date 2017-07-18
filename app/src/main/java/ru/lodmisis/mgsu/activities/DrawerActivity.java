@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.Stack;
@@ -27,10 +28,10 @@ import ru.lodmisis.mgsu.fragments.EventsFragment;
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    EndowmentFragment endowmentFragment;
-    EventsFragment eventsFragment;
+    Fragment fragment;
 
-    Stack<Fragment> backStack;
+
+//    Stack<Fragment> backStack;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, DrawerActivity.class);
@@ -54,7 +55,7 @@ public class DrawerActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        backStack = new Stack<>();
+        openDefaultTab(savedInstanceState);
 //        initFragments();
     }
 
@@ -66,21 +67,6 @@ public class DrawerActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            FragmentTransaction fTrans = getSupportFragmentManager()
-                    .beginTransaction();
-            if (backStack.size() != 0) {
-                fTrans.remove(backStack.pop());
-            } else {
-                Toast.makeText(getBaseContext(), "Нажмите ещё раз назад для выхода", Toast.LENGTH_SHORT)
-                        .show();
-            }
-            if (backStack.size() != 0) {
-                fTrans.show(backStack.peek());
-                backStack.peek().onViewCreated(null, null);
-
-            }
-            fTrans.commit();
         }
     }
 
@@ -112,47 +98,53 @@ public class DrawerActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        FragmentTransaction transaction = getSupportFragmentManager()
-                .beginTransaction();
-
-        switch (id) {
-            case R.id.nav_about:
-//                if (endowmentFragment == null)
-                    endowmentFragment = new EndowmentFragment();
-                addToStack(transaction, endowmentFragment);
-                break;
-            case R.id.nav_events:
-//                if (eventsFragment == null)
-                    eventsFragment = new EventsFragment();
-                addToStack(transaction, eventsFragment);
-
-                break;
-        }
-
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        handleFragments(id);
         return true;
     }
 
-    private void addToStack(FragmentTransaction transaction, Fragment fragment) {
-        if (backStack.size() == 0 ||
-                !(backStack.peek().getClass().equals(fragment.getClass()))) {
 
-            if (backStack.size() != 0)
-                transaction.hide(backStack.peek());
-            if (fragment.isAdded()) {
-                transaction.show(fragment);
-                backStack.add(fragment);
-                fragment.onViewCreated(null, null);
-            } else {
-                transaction.add(R.id.fl_container, fragment);
-                backStack.add(fragment);
+    void openDefaultTab(Bundle savedInstanceState) {
+        int tabId = 0;
+        if (savedInstanceState == null)
+            tabId = R.id.nav_about;
+        else
+            tabId = savedInstanceState.getInt("currentTab", R.id.nav_about);
 
-            }
+
+        handleFragments(tabId);
+    }
+
+
+    private void handleFragments(int id) {
+        clearViews();
+        FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+        if (fragment != null)
+            fTrans.detach(fragment);
+//        currentTab = id;
+        switch (id) {
+            case R.id.nav_about:
+                fragment = new EndowmentFragment();
+                break;
+            case R.id.nav_events:
+                fragment = new EventsFragment();
+                break;
+
+
         }
+        fTrans.add(R.id.fl_container, fragment, "current");
+        fTrans.commit();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+    }
+
+    private void clearViews() {
+        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        if (getFragmentManager().findFragmentByTag("current") != null)
+            transaction.detach(getFragmentManager().findFragmentByTag("current"));
+        transaction.commit();
+        ((FrameLayout) findViewById(R.id.fl_container)).removeAllViews();
+        fragment = null;
     }
 }
