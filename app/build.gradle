@@ -61,6 +61,9 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
     compile 'com.github.liuguangqiang.swipeback:library:1.0.2@aar'
     compile 'com.github.sundeepk:compact-calendar-view:2.0.2.1'
+    compile ('com.github.florent37:androidparallax:1.0.1@aar'){
+        transitive=true
+    }
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'

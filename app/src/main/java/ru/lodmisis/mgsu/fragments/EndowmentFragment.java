@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+//import com.nvanbenschoten.motion.ParallaxImageView;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentStatePagerItemAdapter;
@@ -27,6 +28,9 @@ public class EndowmentFragment extends Fragment {
 
     @BindView(R.id.viewpagertab)
     SmartTabLayout viewPagerTab;
+
+//    @BindView(R.id.piv_background)
+//    ParallaxImageView pivBackground;
 
     public EndowmentFragment() {
         // Required empty public constructor
@@ -57,5 +61,15 @@ public class EndowmentFragment extends Fragment {
         viewPagerTab.setViewPager(viewPager);
     }
 
-
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        pivBackground.re();
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        pivBackground.unregisterSensorManager();
+//    }
 }

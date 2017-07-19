@@ -1,46 +1,79 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     tools:context="ru.lodmisis.mgsu.fragments.MissionFragment">
 
-    <ScrollView
-        android:paddingTop="48dp"
+
+    <com.github.florent37.parallax.ScrollView
+        android:id="@+id/sv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:text="@string/mission"
-                android:textColor="@color/titleColor"
-                android:textSize="18sp" />
 
-            <com.mindorks.placeholderview.PlaceHolderView
-                android:id="@+id/phv_aims"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
+            <com.github.florent37.parallax.ParallaxView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:text="\nИдея создания и формирование масштабных целей эндаумент-фонда началась в Юбилейном 2016 году - во время разработки программы к 95-летию университета. Основной механизм действия эндаумента состоит в том, что пожертвованные в фонд средства не расходуются, а передаются управляющей компании. Доходы от доверительного управления направляются на цели, определенные Попечительским Советом, а целевой капитал остается и продолжает работать.\n\n\n"
-                android:textColor="@color/titleColor"
-                android:textSize="18sp" />
+                app:parallaxVertical="0.7">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/background_hexagon_start" />
+            </com.github.florent37.parallax.ParallaxView>
 
-    </ScrollView>
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:text="@string/mission"
+                        android:textColor="@color/titleColor"
+                        android:textSize="18sp" />
+
+                    <com.mindorks.placeholderview.PlaceHolderView
+                        android:id="@+id/phv_aims"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:text="\nИдея создания и формирование масштабных целей эндаумент-фонда началась в Юбилейном 2016 году - во время разработки программы к 95-летию университета. Основной механизм действия эндаумента состоит в том, что пожертвованные в фонд средства не расходуются, а передаются управляющей компании. Доходы от доверительного управления направляются на цели, определенные Попечительским Советом, а целевой капитал остается и продолжает работать.\n\n\n"
+                        android:textColor="@color/titleColor"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+        </FrameLayout>
+
+
+    </com.github.florent37.parallax.ScrollView>
+    <View
+        android:alpha="0"
+        android:id="@+id/v_tabs_background"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="48dp"/>
 </FrameLayout>

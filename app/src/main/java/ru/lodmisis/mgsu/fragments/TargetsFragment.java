@@ -4,6 +4,8 @@ package ru.lodmisis.mgsu.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,5 +47,14 @@ public class TargetsFragment extends Fragment {
         phvAims.addView(new Enumeration("поддержка профессорско-преподавательского состава;"));
         phvAims.addView(new Enumeration("поддержка научно-исследовательской деятельности;"));
         phvAims.addView(new Enumeration("развитие инфраструктуры."));
+        scroll();
+    }
+
+    private void scroll() {
+
+        phvAims.setOnTouchListener((v, event) -> {
+            Log.d("kek", "Y: "+phvAims.getY());
+            return true;
+        });
     }
 }

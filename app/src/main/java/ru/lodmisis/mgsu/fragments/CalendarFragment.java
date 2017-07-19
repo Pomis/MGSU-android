@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.base.BaseFragment;
 import ru.lodmisis.mgsu.viewmodels.EventModel;
+import ru.lodmisis.mgsu.viewmodels.TimelineEndModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,12 +57,35 @@ public class CalendarFragment extends BaseFragment {
         updateTitle();
         addTestEvents();
         drawLists();
+        setListeners();
     }
 
     private void updateTitle() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat( "LLLL YYYY", Locale.getDefault() );
-        getActivity().setTitle("Cобытия за "+dateFormat.format(new Date()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLLL YYYY", Locale.getDefault());
+        getActivity().setTitle("Cобытия за " + dateFormat.format(new Date()));
+    }
 
+    private void setListeners() {
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                for (int i = eventModels.size() - 1; i >= 0; i--) {
+                    boolean dateSelected = eventModels.get(i).startDate.getDate() == dateClicked.getDate();
+                    eventModels.get(i).selected = dateSelected;
+                    if (dateSelected) {
+                        phvEvents.refresh();
+                        phvEvents.smoothScrollToPosition(i);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+
+            }
+        });
     }
 
     private void addTestEvents() {
@@ -73,25 +97,61 @@ public class CalendarFragment extends BaseFragment {
         kek.isInternal = true;
         kek.mPlaceHolderView = phvEvents;
         kek.mContext = getContext();
+        kek.group(null);
         eventModels.add(kek);
-        eventModels.add(kek);
+
+
+        EventModel kek3 = new EventModel();
+        kek3.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+        kek3.isInternal = true;
+        kek3.mPlaceHolderView = phvEvents;
+        kek3.mContext = getContext();
+        kek3.group(kek);
+        eventModels.add(kek3);
+
 
         EventModel ke1k = new EventModel();
         ke1k.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 125));
         ke1k.isInternal = false;
         ke1k.mPlaceHolderView = phvEvents;
         ke1k.mContext = getContext();
-
+        ke1k.group(kek3);
         eventModels.add(ke1k);
+
+        EventModel ke2k = new EventModel();
+        ke2k.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 149));
+        ke2k.isInternal = false;
+        ke2k.mPlaceHolderView = phvEvents;
+        ke2k.mContext = getContext();
+        ke2k.group(ke1k);
+        eventModels.add(ke2k);
+
+        EventModel ke4k = new EventModel();
+        ke4k.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 149));
+        ke4k.isInternal = false;
+        ke4k.mPlaceHolderView = phvEvents;
+        ke4k.mContext = getContext();
+        ke4k.group(ke2k);
+        eventModels.add(ke4k);
+
+        EventModel ke7k = new EventModel();
+        ke7k.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 189));
+        ke7k.isInternal = false;
+        ke7k.mPlaceHolderView = phvEvents;
+        ke7k.mContext = getContext();
+        ke7k.group(ke4k);
+        eventModels.add(ke7k);
 
         for (EventModel eventModel : eventModels) {
             compactCalendarView.addEvent(eventModel.toCalendarEvent());
         }
+
     }
 
     private void drawLists() {
         eventModels.forEach(eventModel -> {
             phvEvents.addView(eventModel);
         });
+        phvEvents.addView(new TimelineEndModel());
     }
 }
