@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,8 +37,11 @@ public class ProjectFragment extends Fragment {
     @BindView(R.id.tv_short_descr)
     TextView tvShortDescr;
 
-    @BindView(R.id.tv_full_description)
-    TextView tvDescr;
+//    @BindView(R.id.tv_full_description)
+//    TextView tvDescr;
+
+    @BindView(R.id.wv_full_description)
+    WebView wvDescr;
 
     ProjectModel project;
 
@@ -76,7 +80,8 @@ public class ProjectFragment extends Fragment {
             tvShortDescr.setText(project.shortDescription);
 
             if (project.content != null)
-                tvDescr.setText(project.content);
+                wvDescr.loadData(project.content, "text/html; charset=utf-8", "utf-8");
+//                tvDescr.setText(project.content);
         }
 
 
