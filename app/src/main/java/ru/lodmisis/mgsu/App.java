@@ -22,6 +22,8 @@ public class App extends Application {
 
     static private Realm realm;
     static private Endpoints endowmentService;
+    static private SettingsPrefs settingsPrefs;
+
 
     @Override
     public void onCreate() {
@@ -38,6 +40,7 @@ public class App extends Application {
         ClearableCookieJar cookieJar =
                 new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(context));
         httpClient.cookieJar(cookieJar);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 //                .addConverterFactory(new JSONConverterFactory())
@@ -59,9 +62,18 @@ public class App extends Application {
         realm = Realm.getInstance(config);
     }
 
+    private static void initPrefs(Context context) {
+        settingsPrefs = SettingsPrefs.create(context);
+    }
+
     static public Realm getRealmInstance(Context context) {
         if (realm == null) initRealm(context);
         return realm;
+    }
+
+    static public SettingsPrefs getPrefsInstance(Context context) {
+        if (settingsPrefs == null) initPrefs(context);
+        return settingsPrefs;
     }
 
     static public Endpoints getEndowmentService(Context context) {

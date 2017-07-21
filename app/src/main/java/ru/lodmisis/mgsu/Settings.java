@@ -1,9 +1,13 @@
 package ru.lodmisis.mgsu;
 
+import net.yslibrary.simplepreferences.annotation.Key;
+import net.yslibrary.simplepreferences.annotation.Preferences;
+
 /**
  * Created by romanismagilov on 07.07.17.
  */
 
+@Preferences
 public class Settings {
 
     private static final String DEV_URL = "http://85.143.104.47:4500";
@@ -12,4 +16,6 @@ public class Settings {
     public static final String BASE_URL = PRODUCTION_URL;
 
 
+    @Key(omitGetterPrefix = true)
+    protected boolean isLogged = false;
 }

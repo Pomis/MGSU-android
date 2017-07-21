@@ -62,6 +62,9 @@ dependencies {
     compile 'com.github.liuguangqiang.swipeback:library:1.0.2@aar'
     compile 'com.github.sundeepk:compact-calendar-view:2.0.2.1'
     compile 'com.nvanbenschoten.motion:library:1.1.2'
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    annotationProcessor 'net.yslibrary.simplepreferences:simplepreferences-processor:1.4.0'
+    compile 'net.yslibrary.simplepreferences:simplepreferences:1.4.0'
     compile ('com.github.florent37:androidparallax:1.0.1@aar'){
         transitive=true
     }

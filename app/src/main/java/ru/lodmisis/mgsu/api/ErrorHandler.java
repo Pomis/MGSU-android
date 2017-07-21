@@ -24,7 +24,8 @@ public class ErrorHandler {
             Toast.makeText(context, "Неверные данные!", Toast.LENGTH_LONG).show();
         } else if (throwable instanceof ConnectException) {
             Toast.makeText(context, "Отсутствует подключение к интернету!", Toast.LENGTH_LONG).show();
-
+        } else if (throwable instanceof IllegalArgumentException) {
+            Toast.makeText(context, "Не все поля заполнены!", Toast.LENGTH_LONG).show();
         }
     }
 }
