@@ -7,4 +7,5 @@
     <color name="titleColor">#333</color>
     <color name="colorWhite">#fff</color>
     <color name="colorInverse">#6d70cb</color>
+    <color name="colorTransparent">#00ffffff</color>
 </resources>

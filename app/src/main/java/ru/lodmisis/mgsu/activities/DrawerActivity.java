@@ -34,8 +34,7 @@ import ru.lodmisis.mgsu.fragments.NewsFragment;
 import ru.lodmisis.mgsu.viewmodels.Enumeration;
 import ru.lodmisis.mgsu.viewmodels.MenuElementModel;
 
-public class DrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class DrawerActivity extends AppCompatActivity{
 
     Fragment fragment;
 
@@ -62,7 +61,7 @@ public class DrawerActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        navigationView.setNavigationItemSelectedListener(this);
 //        navigationView.getViewTreeObserver().addOnGlobalLayoutListener(this::initDrawer);
 //        ButterKnife.bind(this);
 
@@ -76,11 +75,11 @@ public class DrawerActivity extends AppCompatActivity
         PlaceHolderView phvMenu = (PlaceHolderView) findViewById(R.id.phv_menu);
 
         phvMenu.addView(new Enumeration(""));
-        phvMenu.addView(new MenuElementModel(null, 0, "Об Эндаумент фонде",0));
-        phvMenu.addView(new MenuElementModel(null, 0, "Новости",1));
-        phvMenu.addView(new MenuElementModel(null, 0, "Мероприятия",0));
-        phvMenu.addView(new MenuElementModel(null, 0, "Календарь",1));
-        phvMenu.addView(new MenuElementModel(null, 0, "Задать вопрос",0));
+        phvMenu.addView(new MenuElementModel(this, new EndowmentFragment(), 0, "Об Эндаумент фонде",0));
+        phvMenu.addView(new MenuElementModel(this, new NewsFragment(), 0, "Новости",1));
+        phvMenu.addView(new MenuElementModel(this, new EventsFragment(), 0, "Мероприятия",0));
+        phvMenu.addView(new MenuElementModel(this, new CalendarFragment(), 0, "Календарь",1));
+        phvMenu.addView(new MenuElementModel(this, new FAQFragment(), 0, "Задать вопрос",0));
 
     }
 
@@ -112,15 +111,6 @@ public class DrawerActivity extends AppCompatActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        handleFragments(id);
-        return true;
-    }
-
 
     void openDefaultTab(Bundle savedInstanceState) {
         int tabId = 0;
@@ -130,47 +120,61 @@ public class DrawerActivity extends AppCompatActivity
             tabId = savedInstanceState.getInt("currentTab", R.id.nav_about);
 
 
-        handleFragments(tabId);
+//        handleFragmentById(tabId);
+        handleFragment(new EndowmentFragment());
     }
 
 
-    private void handleFragments(int id) {
+    public void handleFragment(Fragment fragment) {
         clearViews();
         FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
         if (fragment != null)
             fTrans.detach(fragment);
-//        currentTab = id;
-        switch (id) {
-
-            case R.id.nav_about:
-                fragment = new EndowmentFragment();
-                break;
-
-            case R.id.nav_news:
-                fragment = new NewsFragment();
-                break;
-
-            case R.id.nav_events:
-                fragment = new EventsFragment();
-                break;
-
-            case R.id.nav_faq:
-                fragment = new FAQFragment();
-                break;
-
-            case R.id.nav_calendar:
-                fragment = new CalendarFragment();
-                break;
-
-
-        }
+        this.fragment = fragment;
         fTrans.add(R.id.fl_container, fragment, "current");
         fTrans.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-
     }
+
+//    private void handleFragmentById(int id) {
+//        clearViews();
+//        FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+//        if (fragment != null)
+//            fTrans.detach(fragment);
+////        currentTab = id;
+//        switch (id) {
+//
+//            case R.id.nav_about:
+//                fragment = new EndowmentFragment();
+//                break;
+//
+//            case R.id.nav_news:
+//                fragment = new NewsFragment();
+//                break;
+//
+//            case R.id.nav_events:
+//                fragment = new EventsFragment();
+//                break;
+//
+//            case R.id.nav_faq:
+//                fragment = new FAQFragment();
+//                break;
+//
+//            case R.id.nav_calendar:
+//                fragment = new CalendarFragment();
+//                break;
+//
+//
+//        }
+//        fTrans.add(R.id.fl_container, fragment, "current");
+//        fTrans.commit();
+//
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//
+//    }
 
     private void clearViews() {
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
