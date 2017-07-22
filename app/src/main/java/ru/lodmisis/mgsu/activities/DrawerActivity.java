@@ -19,14 +19,20 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.mindorks.placeholderview.PlaceHolderView;
+
 import java.util.Stack;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.fragments.CalendarFragment;
 import ru.lodmisis.mgsu.fragments.EndowmentFragment;
 import ru.lodmisis.mgsu.fragments.EventsFragment;
 import ru.lodmisis.mgsu.fragments.FAQFragment;
 import ru.lodmisis.mgsu.fragments.NewsFragment;
+import ru.lodmisis.mgsu.viewmodels.Enumeration;
+import ru.lodmisis.mgsu.viewmodels.MenuElementModel;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,11 +40,11 @@ public class DrawerActivity extends AppCompatActivity
     Fragment fragment;
 
 
-//    Stack<Fragment> backStack;
+//    @BindView(R.id.phv_menu)
+//    PlaceHolderView phvMenu;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, DrawerActivity.class);
-//        starter.putExtra();
         context.startActivity(starter);
     }
 
@@ -57,13 +63,26 @@ public class DrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+//        navigationView.getViewTreeObserver().addOnGlobalLayoutListener(this::initDrawer);
+//        ButterKnife.bind(this);
 
+        initDrawer();
         openDefaultTab(savedInstanceState);
-//        initFragments();
     }
 
-    //    private void initFragments() {
-//    }
+
+
+    void initDrawer() {
+        PlaceHolderView phvMenu = (PlaceHolderView) findViewById(R.id.phv_menu);
+
+        phvMenu.addView(new Enumeration(""));
+        phvMenu.addView(new MenuElementModel(null, 0, "Об Эндаумент фонде",0));
+        phvMenu.addView(new MenuElementModel(null, 0, "Новости",1));
+        phvMenu.addView(new MenuElementModel(null, 0, "Мероприятия",0));
+        phvMenu.addView(new MenuElementModel(null, 0, "Календарь",1));
+        phvMenu.addView(new MenuElementModel(null, 0, "Задать вопрос",0));
+
+    }
 
     @Override
     public void onBackPressed() {
