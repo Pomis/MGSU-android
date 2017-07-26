@@ -38,6 +38,9 @@ public class NewsModel implements Serializable{
     @View(R.id.iv_row_project)
     transient ImageView ivPic;
 
+    @View(R.id.tv_row_descr)
+    transient TextView tvDescr;
+
 
 
     public String content;
@@ -58,7 +61,9 @@ public class NewsModel implements Serializable{
     private void onResolved() {
         if (isEmptyPlaceholder) {
             tvName.setText("Увы, список пуст");
+            tvDescr.setText("Нажмите, чтобы загрузить заново");
             ivPic.setImageDrawable(mContext.getResources().getDrawable(R.drawable.empty));
+            ivPic.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } else {
             tvName.setText(title);
             Glide.with(mContext).load(img.getOriginal()).into(ivPic);

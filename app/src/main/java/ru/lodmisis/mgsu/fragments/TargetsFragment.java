@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.florent37.parallax.ScrollView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.mindorks.placeholderview.PlaceHolderView;
 
 import butterknife.BindView;
@@ -22,6 +25,11 @@ import ru.lodmisis.mgsu.viewmodels.Enumeration;
  */
 public class TargetsFragment extends Fragment {
 
+    @BindView(R.id.sv_background)
+    ScrollView svBackground;
+
+    @BindView(R.id.v_tabs_background)
+    View vTabsBackground;
 
     @BindView(R.id.phv_keys)
     PlaceHolderView phvAims;
@@ -49,12 +57,24 @@ public class TargetsFragment extends Fragment {
         phvAims.addView(new Enumeration("развитие инфраструктуры."));
         scroll();
     }
-
     private void scroll() {
+        svBackground.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+            @Override
+            public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+                float alpha = scrollY / 300f;
+                Log.d("kek", "alpha"+alpha);
+                vTabsBackground.setAlpha(alpha);
+            }
 
-        phvAims.setOnTouchListener((v, event) -> {
-            Log.d("kek", "Y: "+phvAims.getY());
-            return true;
+            @Override
+            public void onDownMotionEvent() {
+
+            }
+
+            @Override
+            public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+
+            }
         });
     }
 }

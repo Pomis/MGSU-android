@@ -84,6 +84,7 @@ public class MenuElementModel {
         try {
             drawerActivity.phvMenu.getAllViewResolvers().stream().filter(o -> o instanceof MenuElementModel).forEach(o -> ((MenuElementModel) o).selected = false);
             selected = true;
+            drawerActivity.setTitle(text);
             drawerActivity.handleFragment(fragmentClass);
         } catch (Exception e) {
             e.printStackTrace();

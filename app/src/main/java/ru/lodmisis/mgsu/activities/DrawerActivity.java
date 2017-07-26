@@ -30,6 +30,7 @@ import ru.lodmisis.mgsu.fragments.EndowmentFragment;
 import ru.lodmisis.mgsu.fragments.EventsFragment;
 import ru.lodmisis.mgsu.fragments.FAQFragment;
 import ru.lodmisis.mgsu.fragments.NewsFragment;
+import ru.lodmisis.mgsu.fragments.UserFragment;
 import ru.lodmisis.mgsu.viewmodels.Enumeration;
 import ru.lodmisis.mgsu.viewmodels.MenuElementModel;
 
@@ -77,7 +78,7 @@ public class DrawerActivity extends AppCompatActivity {
         phvMenu.addView(new Enumeration(""));
 
         phvMenu.addView(new MenuElementModel(this,
-                EndowmentFragment.class,
+                UserFragment.class,
                 R.drawable.ic_login,
                 "Вход не выполнен", 0, false));
 

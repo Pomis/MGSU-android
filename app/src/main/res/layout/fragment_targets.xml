@@ -8,6 +8,7 @@
 
 
     <com.github.florent37.parallax.ScrollView
+        android:id="@+id/sv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -64,4 +65,10 @@
 
         </FrameLayout>
     </com.github.florent37.parallax.ScrollView>
+    <View
+        android:alpha="0"
+        android:id="@+id/v_tabs_background"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="48dp"/>
 </FrameLayout>
