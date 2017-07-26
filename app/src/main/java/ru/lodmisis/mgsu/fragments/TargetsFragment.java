@@ -32,7 +32,7 @@ public class TargetsFragment extends Fragment {
     View vTabsBackground;
 
     @BindView(R.id.phv_keys)
-    PlaceHolderView phvAims;
+    PlaceHolderView phvKeys;
 
     public TargetsFragment() {
         // Required empty public constructor
@@ -51,10 +51,11 @@ public class TargetsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        phvAims.addView(new Enumeration("поддержка студентов (образование, помощь в трудоустройстве, спорт, культурно-массовые мероприятия);"));
-        phvAims.addView(new Enumeration("поддержка профессорско-преподавательского состава;"));
-        phvAims.addView(new Enumeration("поддержка научно-исследовательской деятельности;"));
-        phvAims.addView(new Enumeration("развитие инфраструктуры."));
+        phvKeys.addView(new Enumeration("поддержка студентов (образование, помощь в трудоустройстве, спорт, культурно-массовые мероприятия);"));
+        phvKeys.addView(new Enumeration("поддержка профессорско-преподавательского состава;"));
+        phvKeys.addView(new Enumeration("поддержка научно-исследовательской деятельности;"));
+        phvKeys.addView(new Enumeration("развитие инфраструктуры."));
+        phvKeys.refresh();
         scroll();
     }
     private void scroll() {
