@@ -16,7 +16,10 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
+import ru.lodmisis.mgsu.api.ErrorHandler;
 import ru.lodmisis.mgsu.base.BaseFragment;
+import ru.lodmisis.mgsu.viewmodels.Enumeration;
+import ru.lodmisis.mgsu.viewmodels.NewsModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,10 +50,11 @@ public class NewsFragment extends BaseFragment {
     }
 
     private void loadPosts() {
+        phvProjects.removeAllViews();
         api.getPosts().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(Throwable::printStackTrace)
                 .flatMap(Observable::fromIterable)
+                .switchIfEmpty(Observable.just(new NewsModel(getContext(), this::loadPosts)))
                 .subscribe(item -> {
 
                     item.mContext = getContext();
@@ -58,7 +62,12 @@ public class NewsFragment extends BaseFragment {
                     phvProjects.addView(item);
                     phvProjects.refresh();
 
-                });
+                }, throwable -> {
+
+                    ErrorHandler.handle(throwable, getContext());
+                })
+
+        ;
 
     }
 }

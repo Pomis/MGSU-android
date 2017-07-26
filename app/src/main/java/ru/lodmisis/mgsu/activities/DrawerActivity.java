@@ -3,12 +3,8 @@ package ru.lodmisis.mgsu.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,15 +13,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mindorks.placeholderview.PlaceHolderView;
 
-import java.util.Stack;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import ru.lodmisis.mgsu.App;
 import ru.lodmisis.mgsu.R;
+import ru.lodmisis.mgsu.api.ErrorHandler;
 import ru.lodmisis.mgsu.fragments.CalendarFragment;
 import ru.lodmisis.mgsu.fragments.EndowmentFragment;
 import ru.lodmisis.mgsu.fragments.EventsFragment;
@@ -34,13 +33,22 @@ import ru.lodmisis.mgsu.fragments.NewsFragment;
 import ru.lodmisis.mgsu.viewmodels.Enumeration;
 import ru.lodmisis.mgsu.viewmodels.MenuElementModel;
 
-public class DrawerActivity extends AppCompatActivity{
+public class DrawerActivity extends AppCompatActivity {
 
-    Fragment fragment;
+    Fragment selectedFragment;
 
 
-//    @BindView(R.id.phv_menu)
-//    PlaceHolderView phvMenu;
+    @BindView(R.id.phv_menu)
+    public PlaceHolderView phvMenu;
+
+//    @BindView(R.id.tv_menu_username)
+//    TextView tvMenuUsername;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, DrawerActivity.class);
@@ -51,35 +59,51 @@ public class DrawerActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
-//        navigationView.getViewTreeObserver().addOnGlobalLayoutListener(this::initDrawer);
-//        ButterKnife.bind(this);
-
         initDrawer();
         openDefaultTab(savedInstanceState);
+        loadCurrentUserInfo();
     }
 
 
-
     void initDrawer() {
-        PlaceHolderView phvMenu = (PlaceHolderView) findViewById(R.id.phv_menu);
+        phvMenu.addView(new Enumeration(""));
+
+        phvMenu.addView(new MenuElementModel(this,
+                EndowmentFragment.class,
+                R.drawable.ic_login,
+                "Вход не выполнен", 0, false));
 
         phvMenu.addView(new Enumeration(""));
-        phvMenu.addView(new MenuElementModel(this, new EndowmentFragment(), 0, "Об Эндаумент фонде",0));
-        phvMenu.addView(new MenuElementModel(this, new NewsFragment(), 0, "Новости",1));
-        phvMenu.addView(new MenuElementModel(this, new EventsFragment(), 0, "Мероприятия",0));
-        phvMenu.addView(new MenuElementModel(this, new CalendarFragment(), 0, "Календарь",1));
-        phvMenu.addView(new MenuElementModel(this, new FAQFragment(), 0, "Задать вопрос",0));
+        phvMenu.addView(new Enumeration(""));
+
+        phvMenu.addView(new MenuElementModel(this,
+                EndowmentFragment.class,
+                R.drawable.ic_fund,
+                "Об Эндаумент фонде", 0, true));
+        phvMenu.addView(new MenuElementModel(this,
+                NewsFragment.class,
+                R.drawable.ic_news,
+                "Новости", 1, false));
+        phvMenu.addView(new MenuElementModel(this,
+                EventsFragment.class,
+                R.drawable.ic_events,
+                "Мероприятия", 0, false));
+        phvMenu.addView(new MenuElementModel(this,
+                CalendarFragment.class,
+                R.drawable.ic_calendar,
+                "Календарь", 1, false));
+        phvMenu.addView(new MenuElementModel(this,
+                FAQFragment.class,
+                R.drawable.ic_faq,
+                "Задать вопрос", 0, false));
 
     }
 
@@ -88,12 +112,13 @@ public class DrawerActivity extends AppCompatActivity{
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else {
+            Toast.makeText(this, "Нажмите ещё раз для выхода", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.drawer, menu);
         return true;
     }
@@ -111,7 +136,6 @@ public class DrawerActivity extends AppCompatActivity{
     }
 
 
-
     void openDefaultTab(Bundle savedInstanceState) {
         int tabId = 0;
         if (savedInstanceState == null)
@@ -119,62 +143,34 @@ public class DrawerActivity extends AppCompatActivity{
         else
             tabId = savedInstanceState.getInt("currentTab", R.id.nav_about);
 
-
-//        handleFragmentById(tabId);
-        handleFragment(new EndowmentFragment());
+        handleFragment(EndowmentFragment.class);
     }
 
 
-    public void handleFragment(Fragment fragment) {
-        clearViews();
-        FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
-        if (fragment != null)
-            fTrans.detach(fragment);
-        this.fragment = fragment;
-        fTrans.add(R.id.fl_container, fragment, "current");
-        fTrans.commit();
+    public <T extends Fragment> void handleFragment(Class<T> fragmentClass) {
+        // view updating
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        phvMenu.refresh();
+        Fragment fragment = null;
+        try {
+            fragment = fragmentClass.newInstance();
+            clearViews();
+            FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+            if (selectedFragment != null)
+                fTrans.detach(selectedFragment);
+            this.selectedFragment = fragment;
+            fTrans.add(R.id.fl_container, fragment, "current");
+            fTrans.commit();
+
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
     }
-
-//    private void handleFragmentById(int id) {
-//        clearViews();
-//        FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
-//        if (fragment != null)
-//            fTrans.detach(fragment);
-////        currentTab = id;
-//        switch (id) {
-//
-//            case R.id.nav_about:
-//                fragment = new EndowmentFragment();
-//                break;
-//
-//            case R.id.nav_news:
-//                fragment = new NewsFragment();
-//                break;
-//
-//            case R.id.nav_events:
-//                fragment = new EventsFragment();
-//                break;
-//
-//            case R.id.nav_faq:
-//                fragment = new FAQFragment();
-//                break;
-//
-//            case R.id.nav_calendar:
-//                fragment = new CalendarFragment();
-//                break;
-//
-//
-//        }
-//        fTrans.add(R.id.fl_container, fragment, "current");
-//        fTrans.commit();
-//
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//
-//    }
 
     private void clearViews() {
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -182,6 +178,17 @@ public class DrawerActivity extends AppCompatActivity{
             transaction.detach(getFragmentManager().findFragmentByTag("current"));
         transaction.commit();
         ((FrameLayout) findViewById(R.id.fl_container)).removeAllViews();
-        fragment = null;
+        selectedFragment = null;
+    }
+
+    private void loadCurrentUserInfo() {
+        App.getEndowmentService(this).getCurrentUser().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(user -> {
+//                    tvMenuUsername.setText(user.firstName + " " + user.lastName);
+                }, throwable -> {
+                    ErrorHandler.handle(throwable, this);
+
+                });
     }
 }

@@ -29,12 +29,12 @@
 
     <ImageView
         android:id="@+id/iv_row_icon"
-        android:layout_width="40dp"
+        android:layout_width="24dp"
         android:layout_height="60dp"
         android:layout_centerInParent="true"
-        android:layout_marginRight="22dp"
+        android:layout_marginRight="30dp"
         android:layout_toLeftOf="@+id/v_row_padding"
-        android:scaleType="center"
+        android:scaleType="centerInside"
         android:src="@drawable/ic_menu_gallery"
         android:tint="@color/colorWhite" />
 

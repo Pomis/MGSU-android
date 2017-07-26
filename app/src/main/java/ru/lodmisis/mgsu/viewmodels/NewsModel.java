@@ -30,7 +30,8 @@ import ru.lodmisis.mgsu.activities.SwipeableActivity;
 public class NewsModel implements Serializable{
     transient public Context mContext;
     transient public PlaceHolderView mPlaceHolderView;
-
+    transient boolean isEmptyPlaceholder = false;
+    transient Runnable callback;
     @View(R.id.tv_title)
     transient TextView tvName;
 
@@ -55,16 +56,31 @@ public class NewsModel implements Serializable{
 
     @Resolve
     private void onResolved() {
-        tvName.setText(title);
-        Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+        if (isEmptyPlaceholder) {
+            tvName.setText("Увы, список пуст");
+            ivPic.setImageDrawable(mContext.getResources().getDrawable(R.drawable.empty));
+        } else {
+            tvName.setText(title);
+            Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+        }
     }
 
     @Click(R.id.cv_project)
     public void onItemClick() {
-        SwipeableActivity.start(mContext, this);
-        Log.d("kek", "clicket");
+        if (isEmptyPlaceholder) {
+            callback.run();
+        } else {
+            SwipeableActivity.start(mContext, this);
+            Log.d("kek", "clicket");
+        }
+
     }
 
     public NewsModel(){}
 
+    public NewsModel(Context mContext, Runnable callback) {
+        this.callback = callback;
+        this.isEmptyPlaceholder = true;
+        this.mContext = mContext;
+    }
 }

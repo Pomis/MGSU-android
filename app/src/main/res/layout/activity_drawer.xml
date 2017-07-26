@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,8 +35,9 @@
                 android:id="@+id/phv_menu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="100dp"
                 android:paddingTop="10dp" />
+
+
         </FrameLayout>
 
     </android.support.design.widget.NavigationView>

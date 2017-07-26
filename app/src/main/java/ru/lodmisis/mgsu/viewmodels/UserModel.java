@@ -4,7 +4,7 @@ package ru.lodmisis.mgsu.viewmodels;
  * Created by romanismagilov on 12.07.17.
  */
 
-public class User {
+public class UserModel {
 
     public String firstName = "";
 

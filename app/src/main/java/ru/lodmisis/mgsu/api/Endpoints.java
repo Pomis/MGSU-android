@@ -10,7 +10,7 @@ import retrofit2.http.Path;
 import ru.lodmisis.mgsu.viewmodels.EventModel;
 import ru.lodmisis.mgsu.viewmodels.NewsModel;
 import ru.lodmisis.mgsu.viewmodels.ProjectModel;
-import ru.lodmisis.mgsu.viewmodels.User;
+import ru.lodmisis.mgsu.viewmodels.UserModel;
 
 /**
  * Created by romanismagilov on 06.06.17.
@@ -19,7 +19,7 @@ import ru.lodmisis.mgsu.viewmodels.User;
 public interface Endpoints {
 
     @POST("/user/login")
-    Observable<User> login(
+    Observable<UserModel> login(
             @Body AuthBody body
     );
 
@@ -30,7 +30,7 @@ public interface Endpoints {
     Observable<List<NewsModel>> getPosts();
 
     @GET("/user/current")
-    Observable<User> getCurrentUser();
+    Observable<UserModel> getCurrentUser();
 
     @GET("/events/{year}/{month}")
     Observable<List<EventModel>> getMyEvents(
