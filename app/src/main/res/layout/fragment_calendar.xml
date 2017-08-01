@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
+    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context="ru.lodmisis.mgsu.fragments.CalendarFragment">
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,16 +23,6 @@
         app:compactCalendarTextSize="12sp" />
 
 
-    <com.mindorks.placeholderview.PlaceHolderView
-        android:id="@+id/phv_events"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ccv_calendar" />
+    <include layout="@layout/element_timeline" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/background_timed_event_end"
-        android:layout_below="@+id/phv_events" />
-
-</RelativeLayout>
+</LinearLayout>

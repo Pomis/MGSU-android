@@ -8,19 +8,16 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import ru.lodmisis.mgsu.R;
-import ru.lodmisis.mgsu.base.BaseFragment;
+import ru.lodmisis.mgsu.base.InjectionFragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FAQFragment extends BaseFragment {
+public class FAQFragment extends InjectionFragment {
 
 
     View lastOpenedQuestion;

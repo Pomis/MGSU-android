@@ -63,6 +63,8 @@ dependencies {
     compile 'com.github.sundeepk:compact-calendar-view:2.0.2.1'
     compile 'com.nvanbenschoten.motion:library:1.1.2'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    compile 'com.github.GrenderG:Toasty:1.2.5'
+    compile 'com.github.ybq:Android-SpinKit:1.1.0'
     compile 'net.yslibrary.simplepreferences:simplepreferences:1.4.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'net.yslibrary.simplepreferences:simplepreferences-processor:1.4.0'

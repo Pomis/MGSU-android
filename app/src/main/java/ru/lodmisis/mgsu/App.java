@@ -15,7 +15,9 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ru.lodmisis.mgsu.activities.SwipeableActivity;
 import ru.lodmisis.mgsu.api.Endpoints;
+import ru.lodmisis.mgsu.fragments.ErrorFragment;
 
 
 public class App extends Application {
@@ -30,6 +32,7 @@ public class App extends Application {
         super.onCreate();
         initRealm(this);
         initRetrofit(this);
+        initErrorHandler(this);
     }
 
     private static void initRetrofit(Context context) {
@@ -60,6 +63,11 @@ public class App extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         realm = Realm.getInstance(config);
+    }
+
+    private static void initErrorHandler(Context context) {
+        Thread.setDefaultUncaughtExceptionHandler((thread, ex) ->
+                SwipeableActivity.start(context, ErrorFragment.class, ex));
     }
 
     private static void initPrefs(Context context) {

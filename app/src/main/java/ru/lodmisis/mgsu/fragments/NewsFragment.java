@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.mindorks.placeholderview.PlaceHolderView;
 
 import butterknife.BindView;
@@ -17,17 +18,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.api.ErrorHandler;
-import ru.lodmisis.mgsu.base.BaseFragment;
-import ru.lodmisis.mgsu.viewmodels.Enumeration;
+import ru.lodmisis.mgsu.base.InjectionFragment;
 import ru.lodmisis.mgsu.viewmodels.NewsModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends BaseFragment {
+public class NewsFragment extends InjectionFragment {
 
     @BindView(R.id.phv_projects)
     PlaceHolderView phvProjects;
+
+    @BindView(R.id.skv_loading_indicator)
+    SpinKitView skvIndicator;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -49,11 +52,18 @@ public class NewsFragment extends BaseFragment {
         loadPosts();
     }
 
-    private void loadPosts() {
+    private void clearViews() {
         phvProjects.removeAllViews();
-        api.getPosts().subscribeOn(Schedulers.newThread())
+        skvIndicator.setVisibility(View.VISIBLE);
+    }
+
+    private void loadPosts() {
+        clearViews();
+        api.getPosts()
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(Observable::fromIterable)
+                .onErrorReturnItem(new NewsModel(getContext(), this::loadPosts))
                 .switchIfEmpty(Observable.just(new NewsModel(getContext(), this::loadPosts)))
                 .subscribe(item -> {
 
@@ -61,6 +71,7 @@ public class NewsFragment extends BaseFragment {
                     item.mPlaceHolderView = phvProjects;
                     phvProjects.addView(item);
                     phvProjects.refresh();
+                    skvIndicator.setVisibility(View.INVISIBLE);
 
                 }, throwable -> {
 

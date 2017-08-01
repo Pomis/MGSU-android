@@ -55,30 +55,33 @@ public class EventModel implements Serializable {
     public Date finishDate;     // Окончание мероприятия (если оно продолжительное)
 
 
-    @Ignore
     transient public Context mContext;
-
-    @Ignore
     transient public PlaceHolderView mPlaceHolderView;
-
+    transient boolean isEmptyPlaceholder = false;
+    transient Runnable callback;
     transient private boolean grouped = false; // Группировать с предыдущим элементом
-
-    @Ignore
     transient public boolean selected = false;// День события выбран
 
     @View(R.id.ll_row_event)
-    LinearLayout llEvent;
+    transient LinearLayout llEvent;
     @View(R.id.tv_row_date)
-    TextView tvDate;
+    transient TextView tvDate;
     @View(R.id.tv_row_month)
-    TextView tvMonth;
+    transient TextView tvMonth;
     @View(R.id.v_event)
-    android.view.View vEvent;
+    transient android.view.View vEvent;
     @View(R.id.cv_project)
-    CardView cvProject;
+    transient CardView cvProject;
     @View(R.id.v_padding)
-    android.view.View vPadding;
+    transient android.view.View vPadding;
 
+    static public EventModel getEmptyPlaceholder(Context mContext, Runnable callback) {
+        EventModel eventModel = new EventModel();
+        eventModel.mContext = mContext;
+        eventModel.callback = callback;
+        eventModel.isEmptyPlaceholder = true;
+        return eventModel;
+    }
 
     public Event toCalendarEvent() {
         return new Event(
@@ -99,7 +102,10 @@ public class EventModel implements Serializable {
 
     @Resolve
     void onResolved() {
-        if (startDate!=null) {
+        if (isEmptyPlaceholder) {
+            tvDate.setText("404");
+        }
+        else if (startDate!=null) {
             Locale russian = new Locale("ru");
             String[] newMonths = {
                     "января", "февраля", "марта", "апреля", "мая", "июня",

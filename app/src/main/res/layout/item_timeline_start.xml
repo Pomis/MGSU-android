@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/background_timed_event_start"
+    android:layout_height="40dp"
+    android:layout_marginLeft="60dp"
+    android:orientation="vertical">
+
+</LinearLayout>

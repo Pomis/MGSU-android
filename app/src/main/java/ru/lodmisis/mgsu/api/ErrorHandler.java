@@ -8,6 +8,7 @@ import android.widget.Toast;
 import java.net.ConnectException;
 import java.util.Arrays;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.adapter.rxjava2.HttpException;
 
 /**
@@ -21,11 +22,24 @@ public class ErrorHandler {
         Log.d("kek handler", throwable.toString());
 
         if (throwable instanceof HttpException) {
-            Toast.makeText(context, "Неверные данные!", Toast.LENGTH_LONG).show();
+            switch (((HttpException)throwable).code()) {
+                case 502:
+                    Toasty.error(context, "Сервер недоступен!").show();
+                    break;
+                case 404:
+                    Toasty.error(context, "Неверные данные!").show();
+                    break;
+                case 500:
+                    Toasty.error(context, "Внутренняя ошибка сервера.").show();
+                    break;
+                default:
+                    Toasty.error(context, "Ошибка соединения с сервером.").show();
+                    break;
+            }
         } else if (throwable instanceof ConnectException) {
-            Toast.makeText(context, "Отсутствует подключение к интернету!", Toast.LENGTH_LONG).show();
+            Toasty.error(context, "Отсутствует подключение к интернету!", Toast.LENGTH_LONG).show();
         } else if (throwable instanceof IllegalArgumentException) {
-            Toast.makeText(context, "Не все поля заполнены!", Toast.LENGTH_LONG).show();
+            Toasty.error(context, "Не все поля заполнены!", Toast.LENGTH_LONG).show();
         }
     }
 }

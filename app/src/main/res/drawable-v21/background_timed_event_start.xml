@@ -2,12 +2,12 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:width="5dp"
-        android:left="37.5dp">
+        android:left="7.5dp">
         <shape>
             <gradient
                 android:angle="90"
                 android:endColor="@color/colorWhite"
-                android:startColor="@color/colorAccent" />
+                android:startColor="@color/colorPrimaryDark" />
         </shape>
     </item>
 

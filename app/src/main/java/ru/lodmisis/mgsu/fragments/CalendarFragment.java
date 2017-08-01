@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.mindorks.placeholderview.PlaceHolderView;
-import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,14 +19,15 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.lodmisis.mgsu.R;
-import ru.lodmisis.mgsu.base.BaseFragment;
+import ru.lodmisis.mgsu.base.InjectionFragment;
 import ru.lodmisis.mgsu.viewmodels.EventModel;
+import ru.lodmisis.mgsu.viewmodels.TimeLineStartModel;
 import ru.lodmisis.mgsu.viewmodels.TimelineEndModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CalendarFragment extends BaseFragment {
+public class CalendarFragment extends InjectionFragment {
 
     ArrayList<EventModel> eventModels;
 
@@ -149,9 +149,8 @@ public class CalendarFragment extends BaseFragment {
     }
 
     private void drawLists() {
-        eventModels.forEach(eventModel -> {
-            phvEvents.addView(eventModel);
-        });
+        phvEvents.addView(new TimeLineStartModel());
+        eventModels.forEach(eventModel -> phvEvents.addView(eventModel));
         phvEvents.addView(new TimelineEndModel());
     }
 }

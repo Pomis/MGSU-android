@@ -23,6 +23,7 @@ import java.io.Serializable;
 import butterknife.OnItemClick;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.activities.SwipeableActivity;
+import ru.lodmisis.mgsu.fragments.ProjectFragment;
 
 @Animate(Animation.SCALE_UP_ASC)
 @Layout(R.layout.item_project)
@@ -69,7 +70,7 @@ public class ProjectModel implements Serializable{
 
     @Click(R.id.cv_project)
     public void onItemClick() {
-        SwipeableActivity.start(mContext, this);
+        SwipeableActivity.start(mContext, ProjectFragment.class, this);
         Log.d("kek", "clicket");
     }
 }

@@ -4,13 +4,11 @@ package ru.lodmisis.mgsu.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.franmontiel.persistentcookiejar.persistence.CookiePersistor;
 import com.nvanbenschoten.motion.ParallaxImageView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -20,17 +18,15 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
-import ru.lodmisis.mgsu.Settings;
-import ru.lodmisis.mgsu.SettingsPrefs;
 import ru.lodmisis.mgsu.activities.DrawerActivity;
 import ru.lodmisis.mgsu.api.ErrorHandler;
-import ru.lodmisis.mgsu.base.BaseFragment;
+import ru.lodmisis.mgsu.base.InjectionFragment;
 import ru.lodmisis.mgsu.api.AuthBody;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AuthFragment extends BaseFragment {
+public class AuthFragment extends InjectionFragment {
 
     @BindView(R.id.piv_background)
     ParallaxImageView pivBackground;

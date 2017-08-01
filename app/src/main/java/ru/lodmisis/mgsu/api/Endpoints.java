@@ -3,6 +3,9 @@ package ru.lodmisis.mgsu.api;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -19,7 +22,7 @@ import ru.lodmisis.mgsu.viewmodels.UserModel;
 public interface Endpoints {
 
     @POST("/user/login")
-    Observable<UserModel> login(
+    Single<UserModel> login(
             @Body AuthBody body
     );
 
@@ -30,11 +33,14 @@ public interface Endpoints {
     Observable<List<NewsModel>> getPosts();
 
     @GET("/user/current")
-    Observable<UserModel> getCurrentUser();
+    Single<UserModel> getCurrentUser();
 
     @GET("/events/{year}/{month}")
     Observable<List<EventModel>> getMyEvents(
         @Path("month") int month,
         @Path("year") int year
     );
+
+    @GET("/events")
+    Observable<List<EventModel>> getUpcomingEvents();
 }

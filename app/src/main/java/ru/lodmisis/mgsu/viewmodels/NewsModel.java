@@ -75,7 +75,7 @@ public class NewsModel implements Serializable{
         if (isEmptyPlaceholder) {
             callback.run();
         } else {
-            SwipeableActivity.start(mContext, this);
+//            SwipeableActivity.start(mContext, this);
             Log.d("kek", "clicket");
         }
 

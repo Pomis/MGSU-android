@@ -15,12 +15,13 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
-import ru.lodmisis.mgsu.base.BaseFragment;
+import ru.lodmisis.mgsu.api.ErrorHandler;
+import ru.lodmisis.mgsu.base.InjectionFragment;
 
 /*
  * Проекты из описания
  */
-public class ProjectsFragment extends BaseFragment {
+public class ProjectsFragment extends InjectionFragment {
 
     @BindView(R.id.phv_projects)
     PlaceHolderView phvProjects;
@@ -54,6 +55,8 @@ public class ProjectsFragment extends BaseFragment {
                     phvProjects.addView(item);
                     phvProjects.refresh();
 
+                }, throwable -> {
+                    ErrorHandler.handle(throwable, getContext());
                 });
     }
 
