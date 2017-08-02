@@ -19,14 +19,16 @@ import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.api.ErrorHandler;
 import ru.lodmisis.mgsu.base.InjectionFragment;
+import ru.lodmisis.mgsu.base.ListLoadingFragment;
 import ru.lodmisis.mgsu.viewmodels.EventModel;
+import ru.lodmisis.mgsu.viewmodels.NewsModel;
 import ru.lodmisis.mgsu.viewmodels.TimeLineStartModel;
 import ru.lodmisis.mgsu.viewmodels.TimelineEndModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventsFragment extends InjectionFragment {
+public class EventsFragment extends InjectionFragment implements ListLoadingFragment {
 
     @BindView(R.id.phv_events)
     PlaceHolderView phvEvents;
@@ -63,7 +65,7 @@ public class EventsFragment extends InjectionFragment {
         skvIndicator.setVisibility(View.VISIBLE);
     }
 
-    private void load() {
+    public void load() {
         clearViews();
         async(api.getUpcomingEvents())
                 .onErrorReturnItem(EventModel.getEmptyPlaceholder(getContext(), this::load))

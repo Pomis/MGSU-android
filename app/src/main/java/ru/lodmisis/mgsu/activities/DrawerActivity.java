@@ -105,6 +105,10 @@ public class DrawerActivity extends AppCompatActivity {
                 FAQFragment.class,
                 R.drawable.ic_faq,
                 "Задать вопрос", 0, false));
+        phvMenu.addView(new MenuElementModel(this,
+                FAQFragment.class,
+                R.drawable.ic_sales,
+                "Скидки", 1, false));
 
     }
 
@@ -164,12 +168,17 @@ public class DrawerActivity extends AppCompatActivity {
             fTrans.commit();
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
+            closeDrawer();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void closeDrawer() {
+        drawer.closeDrawer(GravityCompat.START);
 
     }
 

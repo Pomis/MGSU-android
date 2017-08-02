@@ -82,10 +82,14 @@ public class MenuElementModel {
     @Click(R.id.rl_row_menu_item)
     void onClick() {
         try {
-            drawerActivity.phvMenu.getAllViewResolvers().stream().filter(o -> o instanceof MenuElementModel).forEach(o -> ((MenuElementModel) o).selected = false);
-            selected = true;
-            drawerActivity.setTitle(text);
-            drawerActivity.handleFragment(fragmentClass);
+            if (!selected) {
+                drawerActivity.phvMenu.getAllViewResolvers().stream().filter(o -> o instanceof MenuElementModel).forEach(o -> ((MenuElementModel) o).selected = false);
+                selected = true;
+                drawerActivity.setTitle(text);
+                drawerActivity.handleFragment(fragmentClass);
+            } else {
+                drawerActivity.closeDrawer();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

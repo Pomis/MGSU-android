@@ -50,18 +50,20 @@ public class EndowmentFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(
-                getActivity().getSupportFragmentManager(), FragmentPagerItems.with(getActivity())
+                getChildFragmentManager(), FragmentPagerItems.with(getActivity())
                 .add("Миссия", MissionFragment.class)
                 .add("Цели", TargetsFragment.class)
                 .add("Проекты", ProjectsFragment.class)
                 .create());
 
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
 //        viewPager.setCurrentItem(1);
         viewPagerTab.setViewPager(viewPager);
     }
 
-//    @Override
+
+    //    @Override
 //    public void onResume() {
 //        super.onResume();
 //        pivBackground.re();

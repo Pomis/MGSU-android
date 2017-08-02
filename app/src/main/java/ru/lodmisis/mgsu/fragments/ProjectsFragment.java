@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.mindorks.placeholderview.PlaceHolderView;
 
 import butterknife.BindView;
@@ -17,16 +18,23 @@ import io.reactivex.schedulers.Schedulers;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.api.ErrorHandler;
 import ru.lodmisis.mgsu.base.InjectionFragment;
+import ru.lodmisis.mgsu.base.ListLoadingFragment;
+import ru.lodmisis.mgsu.viewmodels.EventModel;
+import ru.lodmisis.mgsu.viewmodels.NewsModel;
+import ru.lodmisis.mgsu.viewmodels.ProjectModel;
 
 /*
  * Проекты из описания
  */
-public class ProjectsFragment extends InjectionFragment {
+public class ProjectsFragment extends InjectionFragment implements ListLoadingFragment {
 
     @BindView(R.id.phv_projects)
     PlaceHolderView phvProjects;
+    @BindView(R.id.skv_loading_indicator)
+    SpinKitView skvIndicator;
 
-    public ProjectsFragment() {}
+    public ProjectsFragment() {
+    }
 
 
     @Override
@@ -38,22 +46,31 @@ public class ProjectsFragment extends InjectionFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loadProjects();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        load();
+
     }
 
-    private void loadProjects() {
-        api.getProjects().subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(Throwable::printStackTrace)
-                .flatMap(Observable::fromIterable)
-                .subscribe(item -> {
 
+    private void clearViews() {
+        phvProjects.removeAllViews();
+        skvIndicator.setVisibility(View.VISIBLE);
+    }
+
+    public void load() {
+        clearViews();
+        async(api.getProjects())
+                .onErrorReturnItem(ProjectModel.getEmptyPlaceholder(getContext(), this::load))
+                .defaultIfEmpty(ProjectModel.getEmptyPlaceholder(getContext(), this::load))
+                .doFinally(() -> {
+                    phvProjects.refresh();
+                    skvIndicator.setVisibility(View.INVISIBLE);
+                })
+                .subscribe(item -> {
                     item.mContext = getContext();
                     item.mPlaceHolderView = phvProjects;
                     phvProjects.addView(item);
-                    phvProjects.refresh();
 
                 }, throwable -> {
                     ErrorHandler.handle(throwable, getContext());

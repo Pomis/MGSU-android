@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     tools:context="ru.lodmisis.mgsu.fragments.ProjectsFragment">
 
+    <include layout="@layout/element_indicator"/>
+
     <com.mindorks.placeholderview.PlaceHolderView
         android:paddingTop="48dp"
         android:clickable="true"

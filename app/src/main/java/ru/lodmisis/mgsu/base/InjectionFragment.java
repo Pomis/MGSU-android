@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import ru.lodmisis.mgsu.SettingsPrefs;
 import ru.lodmisis.mgsu.api.Endpoints;
+import ru.lodmisis.mgsu.viewmodels.Emptyable;
+import ru.lodmisis.mgsu.viewmodels.ProjectModel;
 
 import static ru.lodmisis.mgsu.App.getEndowmentService;
 import static ru.lodmisis.mgsu.App.getPrefsInstance;
@@ -34,10 +37,17 @@ public class InjectionFragment extends android.support.v4.app.Fragment {
         prefs = getPrefsInstance(getContext());
     }
 
-    public <T> Observable <T> async(Observable<List<T>> observable) {
+    protected <T extends Emptyable> Observable<T> async(Observable<List<T>> observable) {
         return observable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(Observable::fromIterable);
     }
+
+    protected <T> Single<T> async(Single<T> single) {
+        return single
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 }

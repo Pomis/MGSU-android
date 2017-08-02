@@ -33,7 +33,7 @@ import ru.lodmisis.mgsu.R;
 
 @Layout(R.layout.item_event)
 @Animate(Animation.SCALE_UP_ASC)
-public class EventModel implements Serializable {
+public class EventModel implements Serializable, Emptyable {
 
     @PrimaryKey
     public String id;

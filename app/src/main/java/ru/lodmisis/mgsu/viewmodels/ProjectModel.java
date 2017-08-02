@@ -27,50 +27,71 @@ import ru.lodmisis.mgsu.fragments.ProjectFragment;
 
 @Animate(Animation.SCALE_UP_ASC)
 @Layout(R.layout.item_project)
-public class ProjectModel implements Serializable{
-
-//    @Ignore
-    transient public Context mContext;
-
-//    @Ignore
-    transient public PlaceHolderView mPlaceHolderView;
-
-
+public class ProjectModel implements Serializable, Emptyable{
     public ProjectModel(){}
 
+
     public String content;
+
     public String id;
-
-    @View(R.id.tv_title)
-    transient TextView tvName;
-
-    @View(R.id.iv_row_project)
-    transient ImageView ivPic;
 
     public String name;
 
     public String direction;
+
     public Double need;
+
     public Double given;
+
     public String shortDescription;
 
     public ImageModel img;
 
-    @Expose
-    @SerializedName("public")
-    public Boolean _public;
-
     public String creatingDate;
+
+    transient public Context mContext;
+    transient public PlaceHolderView mPlaceHolderView;
+    transient boolean isEmptyPlaceholder;
+    transient public Runnable callback;
+
+    @View(R.id.tv_title)
+    transient TextView tvName;
+    @View(R.id.iv_row_project)
+    transient ImageView ivPic;
+    @View(R.id.tv_row_descr)
+    transient TextView tvDescr;
+
+    static public ProjectModel getEmptyPlaceholder(Context mContext, Runnable callback) {
+        ProjectModel projectModel = new ProjectModel();
+        projectModel.mContext = mContext;
+        projectModel.callback = callback;
+        projectModel.isEmptyPlaceholder = true;
+        return projectModel;
+    }
 
     @Resolve
     private void onResolved() {
-        tvName.setText(name);
-        Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+        if (isEmptyPlaceholder) {
+            tvName.setText("Увы, список пуст");
+            tvDescr.setText("Нажмите, чтобы загрузить заново");
+            ivPic.setImageDrawable(mContext.getResources().getDrawable(R.drawable.empty));
+            ivPic.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        } else {
+            tvName.setText(name);
+            Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+        }
     }
 
     @Click(R.id.cv_project)
     public void onItemClick() {
-        SwipeableActivity.start(mContext, ProjectFragment.class, this);
-        Log.d("kek", "clicket");
+        if (isEmptyPlaceholder) {
+            callback.run();
+        } else {
+            SwipeableActivity.start(mContext, ProjectFragment.class, this);
+            Log.d("kek", "clicket");
+        }
+
     }
+
+
 }
