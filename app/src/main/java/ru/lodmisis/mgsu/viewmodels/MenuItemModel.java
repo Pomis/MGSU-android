@@ -2,16 +2,13 @@ package ru.lodmisis.mgsu.viewmodels;
 
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
-import android.support.annotation.IdRes;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mindorks.placeholderview.Animation;
 import com.mindorks.placeholderview.annotations.Animate;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
-import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
@@ -25,7 +22,7 @@ import ru.lodmisis.mgsu.activities.DrawerActivity;
 
 @Animate(Animation.FADE_IN_ASC)
 @Layout(R.layout.item_menu)
-public class MenuElementModel {
+public class MenuItemModel {
     transient private DrawerActivity drawerActivity;
 
     public boolean selected = false;
@@ -33,6 +30,8 @@ public class MenuElementModel {
     int index;
 
     Class fragmentClass;
+
+    public String text;
 
     @DrawableRes
     int icon;
@@ -46,9 +45,8 @@ public class MenuElementModel {
     @View(R.id.iv_row_hexagon)
     ImageView ivHexagon;
 
-    String text;
 
-    public <T extends Fragment> MenuElementModel(DrawerActivity drawerActivity, Class<T> fragmentClass, int icon, String text, int index, boolean selected) {
+    public <T extends Fragment> MenuItemModel(DrawerActivity drawerActivity, Class<T> fragmentClass, int icon, String text, int index, boolean selected) {
         this.drawerActivity = drawerActivity;
         this.fragmentClass = fragmentClass;
         this.icon = icon;
@@ -75,7 +73,7 @@ public class MenuElementModel {
     }
 
 
-    public MenuElementModel(int index) {
+    public MenuItemModel(int index) {
         this.index = index;
     }
 
@@ -83,7 +81,7 @@ public class MenuElementModel {
     void onClick() {
         try {
             if (!selected) {
-                drawerActivity.phvMenu.getAllViewResolvers().stream().filter(o -> o instanceof MenuElementModel).forEach(o -> ((MenuElementModel) o).selected = false);
+                drawerActivity.phvMenu.getAllViewResolvers().stream().filter(o -> o instanceof MenuItemModel).forEach(o -> ((MenuItemModel) o).selected = false);
                 selected = true;
                 drawerActivity.setTitle(text);
                 drawerActivity.handleFragment(fragmentClass);

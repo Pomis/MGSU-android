@@ -1,19 +1,16 @@
 package ru.lodmisis.mgsu.viewmodels;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.domain.Event;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.mindorks.placeholderview.Animation;
 import com.mindorks.placeholderview.PlaceHolderView;
-import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Animate;
+import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
@@ -25,11 +22,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import io.realm.RealmModel;
-import io.realm.RealmObject;
-import io.realm.annotations.Ignore;
+import butterknife.BindView;
 import io.realm.annotations.PrimaryKey;
 import ru.lodmisis.mgsu.R;
+import ru.lodmisis.mgsu.activities.SwipeableActivity;
+import ru.lodmisis.mgsu.fragments.EventFragment;
 
 @Layout(R.layout.item_event)
 @Animate(Animation.SCALE_UP_ASC)
@@ -40,9 +37,9 @@ public class EventModel implements Serializable, Emptyable {
 
     public String content;
 
-    public int quota;           // Общее количество мест
-
-    public int reserved;        // Количство занятых мест
+//    public int quota;           // Общее количество мест
+//
+//    public int reserved;        // Количство занятых мест
 
     public String title;
 
@@ -64,6 +61,8 @@ public class EventModel implements Serializable, Emptyable {
 
     @View(R.id.ll_row_event)
     transient LinearLayout llEvent;
+//    @View(R.id.tv_title)
+//    TextView tvTitle;
     @View(R.id.tv_row_date)
     transient TextView tvDate;
     @View(R.id.tv_row_month)
@@ -104,8 +103,8 @@ public class EventModel implements Serializable, Emptyable {
     void onResolved() {
         if (isEmptyPlaceholder) {
             tvDate.setText("404");
-        }
-        else if (startDate!=null) {
+//            tvTitle.setText("Ничего не найдено.");
+        } else if (startDate != null) {
             Locale russian = new Locale("ru");
             String[] newMonths = {
                     "января", "февраля", "марта", "апреля", "мая", "июня",
@@ -120,6 +119,7 @@ public class EventModel implements Serializable, Emptyable {
             String[] dateSplit = date.split(" ");
             tvDate.setText(dateSplit[0]);
             tvMonth.setText(dateSplit[1]);
+//            tvTitle.setText(title != null ? title : "Без названия");
         }
 
 
@@ -148,6 +148,17 @@ public class EventModel implements Serializable, Emptyable {
         } else {
             llEvent.setBackgroundColor(mContext.getResources().getColor(R.color.colorWhite));
         }
+    }
+
+    @Click(R.id.cv_project)
+    void onClick() {
+        SwipeableActivity.start(mContext, EventFragment.class, this);
+
+//        if (isEmptyPlaceholder) {
+//            callback.run();
+//        } else {
+//            SwipeableActivity.start(mContext, EventFragment.class, null);
+//        }
     }
 
 }

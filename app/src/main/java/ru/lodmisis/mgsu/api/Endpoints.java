@@ -12,6 +12,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import ru.lodmisis.mgsu.viewmodels.EventModel;
 import ru.lodmisis.mgsu.viewmodels.NewsModel;
+import ru.lodmisis.mgsu.viewmodels.PartnerModel;
 import ru.lodmisis.mgsu.viewmodels.ProjectModel;
 import ru.lodmisis.mgsu.viewmodels.UserModel;
 
@@ -43,4 +44,7 @@ public interface Endpoints {
 
     @GET("/events")
     Observable<List<EventModel>> getUpcomingEvents();
+
+    @GET("/partners")
+    Observable<List<PartnerModel>> getPartners();
 }

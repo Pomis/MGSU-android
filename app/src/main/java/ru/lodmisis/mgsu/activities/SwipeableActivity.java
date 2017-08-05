@@ -13,7 +13,9 @@ import java.io.Serializable;
 
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.fragments.ErrorFragment;
+import ru.lodmisis.mgsu.fragments.EventFragment;
 import ru.lodmisis.mgsu.fragments.ProjectFragment;
+import ru.lodmisis.mgsu.viewmodels.EventModel;
 import ru.lodmisis.mgsu.viewmodels.ProjectModel;
 
 public class SwipeableActivity extends SwipeBackActivity {
@@ -51,6 +53,8 @@ public class SwipeableActivity extends SwipeBackActivity {
             currentFragment = new ProjectFragment().setProject((ProjectModel) model);
         } else if (model instanceof Throwable) {
             currentFragment = new ErrorFragment().setModel((Throwable) model);
+        } else if (model instanceof EventModel) {
+            currentFragment = new EventFragment().setModel((EventModel) model);
         } else {
             currentFragment = (Fragment) currentFragmentClass.newInstance();
         }

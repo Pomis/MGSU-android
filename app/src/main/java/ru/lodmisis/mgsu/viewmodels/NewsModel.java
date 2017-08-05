@@ -27,7 +27,7 @@ import ru.lodmisis.mgsu.activities.SwipeableActivity;
 
 @Animate(Animation.SCALE_UP_ASC)
 @Layout(R.layout.item_news)
-public class NewsModel implements Serializable{
+public class NewsModel implements Serializable {
     transient public Context mContext;
     transient public PlaceHolderView mPlaceHolderView;
     transient boolean isEmptyPlaceholder = false;
@@ -40,7 +40,6 @@ public class NewsModel implements Serializable{
 
     @View(R.id.tv_row_descr)
     transient TextView tvDescr;
-
 
 
     public String content;
@@ -65,8 +64,8 @@ public class NewsModel implements Serializable{
             ivPic.setImageDrawable(mContext.getResources().getDrawable(R.drawable.empty));
             ivPic.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } else {
-            tvName.setText(title);
-            Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+            if (title != null) tvName.setText(title);
+            if (img != null) Glide.with(mContext).load(img.getOriginal()).into(ivPic);
         }
     }
 
@@ -81,7 +80,8 @@ public class NewsModel implements Serializable{
 
     }
 
-    public NewsModel(){}
+    public NewsModel() {
+    }
 
     public NewsModel(Context mContext, Runnable callback) {
         this.callback = callback;

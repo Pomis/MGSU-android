@@ -1,7 +1,6 @@
 package ru.lodmisis.mgsu.viewmodels;
 
 
-
 import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
@@ -27,8 +26,9 @@ import ru.lodmisis.mgsu.fragments.ProjectFragment;
 
 @Animate(Animation.SCALE_UP_ASC)
 @Layout(R.layout.item_project)
-public class ProjectModel implements Serializable, Emptyable{
-    public ProjectModel(){}
+public class ProjectModel implements Serializable, Emptyable {
+    public ProjectModel() {
+    }
 
 
     public String content;
@@ -77,8 +77,8 @@ public class ProjectModel implements Serializable, Emptyable{
             ivPic.setImageDrawable(mContext.getResources().getDrawable(R.drawable.empty));
             ivPic.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } else {
-            tvName.setText(name);
-            Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+            if (name != null) tvName.setText(name);
+            if (img != null) Glide.with(mContext).load(img.getOriginal()).into(ivPic);
         }
     }
 
