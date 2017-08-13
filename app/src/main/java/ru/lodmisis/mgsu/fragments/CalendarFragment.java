@@ -70,7 +70,8 @@ public class CalendarFragment extends InjectionFragment {
             @Override
             public void onDayClick(Date dateClicked) {
                 for (int i = eventModels.size() - 1; i >= 0; i--) {
-                    boolean dateSelected = eventModels.get(i).startDate.getDate() == dateClicked.getDate();
+                    boolean dateSelected = eventModels.get(i).date
+                            .getDate() == dateClicked.getDate();
                     eventModels.get(i).selected = dateSelected;
                     if (dateSelected) {
                         phvEvents.refresh();
@@ -93,7 +94,8 @@ public class CalendarFragment extends InjectionFragment {
         Date today = new Date();
 
         EventModel kek = new EventModel();
-        kek.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+        kek.date
+                = new Date(today.getTime() + (1000 * 60 * 60 * 24));
         kek.isInternal = true;
         kek.mPlaceHolderView = phvEvents;
         kek.mContext = getContext();
@@ -102,7 +104,7 @@ public class CalendarFragment extends InjectionFragment {
 
 
         EventModel kek3 = new EventModel();
-        kek3.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+        kek3.date = new Date(today.getTime() + (1000 * 60 * 60 * 24));
         kek3.isInternal = true;
         kek3.mPlaceHolderView = phvEvents;
         kek3.mContext = getContext();
@@ -111,7 +113,8 @@ public class CalendarFragment extends InjectionFragment {
 
 
         EventModel ke1k = new EventModel();
-        ke1k.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 125));
+        ke1k.date
+                = new Date(today.getTime() + (1000 * 60 * 60 * 125));
         ke1k.isInternal = false;
         ke1k.mPlaceHolderView = phvEvents;
         ke1k.mContext = getContext();
@@ -119,7 +122,8 @@ public class CalendarFragment extends InjectionFragment {
         eventModels.add(ke1k);
 
         EventModel ke2k = new EventModel();
-        ke2k.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 149));
+        ke2k.date
+                = new Date(today.getTime() + (1000 * 60 * 60 * 149));
         ke2k.isInternal = false;
         ke2k.mPlaceHolderView = phvEvents;
         ke2k.mContext = getContext();
@@ -127,7 +131,8 @@ public class CalendarFragment extends InjectionFragment {
         eventModels.add(ke2k);
 
         EventModel ke4k = new EventModel();
-        ke4k.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 149));
+        ke4k.date
+                = new Date(today.getTime() + (1000 * 60 * 60 * 149));
         ke4k.isInternal = false;
         ke4k.mPlaceHolderView = phvEvents;
         ke4k.mContext = getContext();
@@ -135,7 +140,8 @@ public class CalendarFragment extends InjectionFragment {
         eventModels.add(ke4k);
 
         EventModel ke7k = new EventModel();
-        ke7k.startDate = new Date(today.getTime() + (1000 * 60 * 60 * 189));
+        ke7k.date
+                = new Date(today.getTime() + (1000 * 60 * 60 * 189));
         ke7k.isInternal = false;
         ke7k.mPlaceHolderView = phvEvents;
         ke7k.mContext = getContext();

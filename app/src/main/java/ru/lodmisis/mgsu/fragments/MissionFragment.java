@@ -69,7 +69,7 @@ public class MissionFragment extends Fragment {
             @Override
             public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
                 float alpha = scrollY / 300f;
-                Log.d("kek", "alpha"+alpha);
+//                Log.d("kek", "alpha"+alpha);
                 vTabsBackground.setAlpha(alpha);
             }
 

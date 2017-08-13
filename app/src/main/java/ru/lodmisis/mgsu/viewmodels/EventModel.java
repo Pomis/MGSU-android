@@ -27,6 +27,9 @@ import io.realm.annotations.PrimaryKey;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.activities.SwipeableActivity;
 import ru.lodmisis.mgsu.fragments.EventFragment;
+import ru.lodmisis.mgsu.utils.DatetimeUtil;
+
+import static ru.lodmisis.mgsu.utils.DatetimeUtil.getRuMonth;
 
 @Layout(R.layout.item_event)
 @Animate(Animation.SCALE_UP_ASC)
@@ -41,15 +44,19 @@ public class EventModel implements Serializable, Emptyable {
 //
 //    public int reserved;        // Количство занятых мест
 
+    public boolean userAttends; // Пользователь зареган на событие
+
     public String title;
 
     public boolean isInternal;  // Внешнее событие = false, внутренее = true
 
     public ImageModel img;
 
-    public Date startDate;      // Начало мероприятия
+    public Date date;           // Просто дата
 
-    public Date finishDate;     // Окончание мероприятия (если оно продолжительное)
+//    public Date date;      // Начало мероприятия
+//
+//    public Date finishDate;     // Окончание мероприятия (если оно продолжительное)
 
 
     transient public Context mContext;
@@ -61,18 +68,25 @@ public class EventModel implements Serializable, Emptyable {
 
     @View(R.id.ll_row_event)
     transient LinearLayout llEvent;
-//    @View(R.id.tv_title)
-//    TextView tvTitle;
+
+    @View(R.id.tv_row_title)
+    transient TextView tvTitle;
+
     @View(R.id.tv_row_date)
     transient TextView tvDate;
+
     @View(R.id.tv_row_month)
     transient TextView tvMonth;
+
     @View(R.id.v_event)
     transient android.view.View vEvent;
+
     @View(R.id.cv_project)
     transient CardView cvProject;
+
     @View(R.id.v_padding)
     transient android.view.View vPadding;
+
 
     static public EventModel getEmptyPlaceholder(Context mContext, Runnable callback) {
         EventModel eventModel = new EventModel();
@@ -87,13 +101,13 @@ public class EventModel implements Serializable, Emptyable {
                 isInternal ?
                         mContext.getResources().getColor(R.color.colorAccent) :
                         mContext.getResources().getColor(R.color.colorInverse),
-                startDate.getTime()
+                date.getTime()
         );
     }
 
     public void group(@Nullable EventModel previousEvent) {
-        if (previousEvent != null && startDate != null && previousEvent.startDate != null) {
-            if (previousEvent.startDate.getDate() == startDate.getDate()) {
+        if (previousEvent != null && date != null && previousEvent.date != null) {
+            if (previousEvent.date.getDate() == date.getDate()) {
                 grouped = true;
             }
         }
@@ -104,22 +118,11 @@ public class EventModel implements Serializable, Emptyable {
         if (isEmptyPlaceholder) {
             tvDate.setText("404");
 //            tvTitle.setText("Ничего не найдено.");
-        } else if (startDate != null) {
-            Locale russian = new Locale("ru");
-            String[] newMonths = {
-                    "января", "февраля", "марта", "апреля", "мая", "июня",
-                    "июля", "августа", "сентября", "октября", "ноября", "декабря"};
-            DateFormatSymbols dfs = DateFormatSymbols.getInstance(russian);
-            dfs.setMonths(newMonths);
-            DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, russian);
-            SimpleDateFormat sdf = (SimpleDateFormat) df;
-            sdf.setDateFormatSymbols(dfs);
+        } else if (date != null) {
 
-            String date = sdf.format(startDate);
-            String[] dateSplit = date.split(" ");
-            tvDate.setText(dateSplit[0]);
-            tvMonth.setText(dateSplit[1]);
-//            tvTitle.setText(title != null ? title : "Без названия");
+            tvDate.setText(""+date.getDate());
+            tvMonth.setText(DatetimeUtil.getRuMonth(date));
+            tvTitle.setText(title != null ? title : "Без названия");
         }
 
 

@@ -2,14 +2,17 @@ package ru.lodmisis.mgsu;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
-import com.franmontiel.persistentcookiejar.ClearableCookieJar;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -30,6 +33,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initPrefs(this);
         initRealm(this);
         initRetrofit(this);
         initErrorHandler(this);
@@ -37,12 +41,41 @@ public class App extends Application {
 
     private static void initRetrofit(Context context) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);  // <-- this is the important line!
-        ClearableCookieJar cookieJar =
-                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(context));
-        httpClient.cookieJar(cookieJar);
+        httpClient.addInterceptor(logging);
+        httpClient.cookieJar(new CookieJar() {
+            String cookieString = null;
+
+            @Override
+            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                if (cookies != null) {
+                    settingsPrefs.setCookie(cookies.get(0).toString());
+                    Log.d("kek cuki saived", url.toString() + ": " + cookies.get(0).toString());
+                } else
+                    Log.d("kek cuki", url.toString() + ": empti cucki");
+
+            }
+
+            @Override
+            public List<Cookie> loadForRequest(HttpUrl url) {
+                Log.d("kek cukiES", url.toString());
+                ArrayList<Cookie> cookies = new ArrayList<Cookie>();
+                if (cookieString == null) {
+                    cookieString = settingsPrefs.getCookie();
+                }
+                Log.d("kek cuki loadet", "cuckie: " + cookieString);
+                if (cookieString != null) {
+                    Cookie cookie = Cookie.parse(url, cookieString);
+                    cookies.add(cookie);
+                }
+
+                return cookies;
+            }
+        });
+//        ClearableCookieJar cookieJar =
+//                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(context));
+//        httpClient.cookieJar(cookieJar);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -95,6 +128,12 @@ public class App extends Application {
 
     public static int pxFromDp(final Context context, final float dp) {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
+
+
+    static public void testCookies(Context context) {
+        new SharedPrefsCookiePersistor((context))
+                .loadAll().forEach(cookie -> Log.d("kek", cookie.value()));
     }
 
 }

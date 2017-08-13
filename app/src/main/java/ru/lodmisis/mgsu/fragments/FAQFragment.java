@@ -50,20 +50,17 @@ public class FAQFragment extends InjectionFragment {
     }
 
     private void bindViews() {
-        getActivity().findViewById(R.id.cv_mail).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"ef@mgsu.ru"});
-                i.putExtra(Intent.EXTRA_SUBJECT, "");
-                i.putExtra(Intent.EXTRA_TEXT   , "");
-                try {
-                    startActivity(Intent.createChooser(i, "Send mail..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(getActivity(), "Почтовый клиент не установлен.",
-                            Toast.LENGTH_SHORT).show();
-                }
+        getActivity().findViewById(R.id.cv_mail).setOnClickListener(v -> {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"ef@mgsu.ru"});
+            i.putExtra(Intent.EXTRA_SUBJECT, "");
+            i.putExtra(Intent.EXTRA_TEXT   , "");
+            try {
+                startActivity(Intent.createChooser(i, "Send mail..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(getActivity(), "Почтовый клиент не установлен.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

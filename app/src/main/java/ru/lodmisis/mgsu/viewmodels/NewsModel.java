@@ -66,6 +66,7 @@ public class NewsModel implements Serializable {
         } else {
             if (title != null) tvName.setText(title);
             if (img != null) Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+            else ivPic.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_about));
         }
     }
 

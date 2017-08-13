@@ -38,8 +38,8 @@ public interface Endpoints {
 
     @GET("/events/{year}/{month}")
     Observable<List<EventModel>> getMyEvents(
-        @Path("month") int month,
-        @Path("year") int year
+            @Path("month") int month,
+            @Path("year") int year
     );
 
     @GET("/events")
@@ -47,4 +47,10 @@ public interface Endpoints {
 
     @GET("/partners")
     Observable<List<PartnerModel>> getPartners();
+
+    @POST("/events/attend/{id}")
+    Single<String> attend(
+            @Path("id") String id,
+            @Body int attend
+    );
 }

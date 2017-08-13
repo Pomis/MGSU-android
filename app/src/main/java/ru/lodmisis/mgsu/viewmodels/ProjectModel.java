@@ -79,6 +79,7 @@ public class ProjectModel implements Serializable, Emptyable {
         } else {
             if (name != null) tvName.setText(name);
             if (img != null) Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+            else ivPic.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_about));
         }
     }
 

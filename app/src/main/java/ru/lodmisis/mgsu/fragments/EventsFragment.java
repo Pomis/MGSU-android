@@ -25,9 +25,7 @@ import ru.lodmisis.mgsu.viewmodels.NewsModel;
 import ru.lodmisis.mgsu.viewmodels.TimeLineStartModel;
 import ru.lodmisis.mgsu.viewmodels.TimelineEndModel;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class EventsFragment extends InjectionFragment implements ListLoadingFragment {
 
     @BindView(R.id.phv_events)

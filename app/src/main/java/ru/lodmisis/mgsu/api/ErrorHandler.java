@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 import es.dmoral.toasty.Toasty;
@@ -16,6 +17,7 @@ import retrofit2.adapter.rxjava2.HttpException;
  */
 
 public class ErrorHandler {
+
 
     static public void handle(Throwable throwable, Context context) {
         Log.d("kek handler", Arrays.toString(throwable.getStackTrace()));
@@ -40,6 +42,8 @@ public class ErrorHandler {
             Toasty.error(context, "Отсутствует подключение к интернету!", Toast.LENGTH_LONG).show();
         } else if (throwable instanceof IllegalArgumentException) {
             Toasty.error(context, "Не все поля заполнены!", Toast.LENGTH_LONG).show();
+        } else if (throwable instanceof SocketTimeoutException) {
+            Toasty.normal(context, "Время ожидания превышено.", Toast.LENGTH_LONG).show();
         }
     }
 }
