@@ -68,7 +68,6 @@ public class DrawerActivity extends AppCompatActivity {
         initDrawer();
         openDefaultTab(savedInstanceState);
         loadCurrentUserInfo();
-        App.testCookies(this);
     }
 
 

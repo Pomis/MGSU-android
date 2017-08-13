@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -24,9 +25,7 @@ import java.util.concurrent.TimeUnit;
 import at.markushi.ui.RevealColorView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
-import retrofit2.http.Path;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.api.ErrorHandler;
 import ru.lodmisis.mgsu.base.InjectionFragment;
@@ -45,8 +44,8 @@ public class EventFragment extends InjectionFragment {
     ImageView ivProject;
     @BindView(R.id.rcv)
     RevealColorView rcv;
-    @BindView(R.id.iv_attend)
-    ImageView ivAttend;
+    @BindView(R.id.fab_attend)
+    FloatingActionButton fabAttend;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_descr)
@@ -132,7 +131,7 @@ public class EventFragment extends InjectionFragment {
     }
 
     private void initAttend() {
-        RxView.clicks(ivAttend)
+        RxView.clicks(fabAttend)
                 .throttleFirst(2, TimeUnit.SECONDS)
                 .subscribe(o -> startAttending());
     }
@@ -145,10 +144,10 @@ public class EventFragment extends InjectionFragment {
 
 
     void startAttending() {
-        ivAttend.setVisibility(View.GONE);
+        fabAttend.setVisibility(View.GONE);
         skvLoadingIndicator.setVisibility(View.VISIBLE);
         async(api.attend(eventModel.id, 0))
-                .subscribe(s -> attend(true), throwable -> {
+                .subscribe(() -> attend(true), throwable -> {
                     attend(false);
                     ErrorHandler.handle(throwable, getContext());
                 });
@@ -160,18 +159,18 @@ public class EventFragment extends InjectionFragment {
                 skvLoadingIndicator.setVisibility(View.GONE);
 
                 final int color = getResources().getColor(R.color.colorAccent);
-                final Point p = getLocationInView(cvProject, ivAttend);
+                final Point p = getLocationInView(cvProject, fabAttend);
 
-                if (selectedView == ivAttend) {
+                if (selectedView == fabAttend) {
                     rcv.hide(p.x, p.y, backgroundColor, 0, 300, null);
                     selectedView = null;
                 } else {
-                    rcv.reveal(p.x, p.y, color, ivAttend.getHeight() / 2, 340, null);
-                    selectedView = ivAttend;
+                    rcv.reveal(p.x, p.y, color, fabAttend.getHeight() / 2, 340, null);
+                    selectedView = fabAttend;
                 }
             } else {
                 skvLoadingIndicator.setVisibility(View.GONE);
-                ivAttend.setVisibility(View.VISIBLE);
+                fabAttend.setVisibility(View.VISIBLE);
 
             }
         } catch (NullPointerException e) {

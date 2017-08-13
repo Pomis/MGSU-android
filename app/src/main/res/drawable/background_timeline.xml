@@ -3,7 +3,7 @@
 
     <item
         android:width="5dp"
-        android:left="7.5dp">
+        android:left="8.5dp">
         <shape>
             <solid android:color="@color/colorPrimaryDark" />
         </shape>

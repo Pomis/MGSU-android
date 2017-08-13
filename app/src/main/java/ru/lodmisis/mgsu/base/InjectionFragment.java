@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -46,6 +47,12 @@ public class InjectionFragment extends android.support.v4.app.Fragment {
 
     protected <T> Single<T> async(Single<T> single) {
         return single
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    protected Completable async(Completable completable) {
+        return completable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

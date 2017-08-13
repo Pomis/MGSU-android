@@ -2,6 +2,7 @@ package ru.lodmisis.mgsu.api;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
@@ -49,7 +50,7 @@ public interface Endpoints {
     Observable<List<PartnerModel>> getPartners();
 
     @POST("/events/attend/{id}")
-    Single<String> attend(
+    Completable attend(
             @Path("id") String id,
             @Body int attend
     );

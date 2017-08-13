@@ -41,7 +41,7 @@ public class App extends Application {
 
     private static void initRetrofit(Context context) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
         httpClient.cookieJar(new CookieJar() {
@@ -130,10 +130,5 @@ public class App extends Application {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
 
-
-    static public void testCookies(Context context) {
-        new SharedPrefsCookiePersistor((context))
-                .loadAll().forEach(cookie -> Log.d("kek", cookie.value()));
-    }
 
 }
