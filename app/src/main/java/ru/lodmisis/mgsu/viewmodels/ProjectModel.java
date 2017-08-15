@@ -39,9 +39,9 @@ public class ProjectModel implements Serializable, Emptyable {
 
     public String direction;
 
-    public Double need;
+    public int need;
 
-    public Double given;
+    public int given;
 
     public String shortDescription;
 

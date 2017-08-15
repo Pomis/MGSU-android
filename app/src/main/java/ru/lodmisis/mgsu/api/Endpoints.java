@@ -31,8 +31,8 @@ public interface Endpoints {
     @GET("/projects")
     Observable<List<ProjectModel>> getProjects();
 
-    @GET("/posts")
-    Observable<List<NewsModel>> getPosts();
+    @GET("/posts?category=news")
+    Observable<List<NewsModel>> getNews();
 
     @GET("/user/current")
     Single<UserModel> getCurrentUser();

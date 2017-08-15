@@ -59,19 +59,18 @@ public class NewsFragment extends InjectionFragment {
 
     private void loadPosts() {
         clearViews();
-        api.getPosts()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(Observable::fromIterable)
+        async(api.getNews())
                 .onErrorReturnItem(new NewsModel(getContext(), this::loadPosts))
                 .switchIfEmpty(Observable.just(new NewsModel(getContext(), this::loadPosts)))
+                .doFinally(() -> {
+                    phvProjects.refresh();
+                    skvIndicator.setVisibility(View.INVISIBLE);
+                })
                 .subscribe(item -> {
 
                     item.mContext = getContext();
                     item.mPlaceHolderView = phvProjects;
-                    phvProjects.addView(item);
-                    phvProjects.refresh();
-                    skvIndicator.setVisibility(View.INVISIBLE);
+                    phvProjects.addView(0, item);
 
                 }, throwable -> {
 

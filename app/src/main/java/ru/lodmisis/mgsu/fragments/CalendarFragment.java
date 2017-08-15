@@ -76,7 +76,6 @@ public class CalendarFragment extends InjectionFragment {
                     if (dateSelected) {
                         phvEvents.refresh();
                         phvEvents.smoothScrollToPosition(i);
-
                     }
                 }
 

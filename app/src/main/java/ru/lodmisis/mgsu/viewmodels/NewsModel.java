@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.annotations.Expose;
@@ -17,9 +18,13 @@ import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import es.dmoral.toasty.Toasty;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.activities.SwipeableActivity;
+import ru.lodmisis.mgsu.fragments.PostFragment;
+import ru.lodmisis.mgsu.utils.DatetimeUtil;
 
 /**
  * Created by romanismagilov on 18.07.17.
@@ -27,7 +32,7 @@ import ru.lodmisis.mgsu.activities.SwipeableActivity;
 
 @Animate(Animation.SCALE_UP_ASC)
 @Layout(R.layout.item_news)
-public class NewsModel implements Serializable {
+public class NewsModel implements Serializable, Emptyable {
     transient public Context mContext;
     transient public PlaceHolderView mPlaceHolderView;
     transient boolean isEmptyPlaceholder = false;
@@ -45,16 +50,10 @@ public class NewsModel implements Serializable {
     public String content;
     public String id;
     public String title;
-    public String direction;
-    public String shortDescription;
-
+//    public String direction;
+    public String description;
     public ImageModel img;
-
-    @Expose
-    @SerializedName("public")
-    public Boolean _public;
-
-    public String creatingDate;
+    public Date creatingDate;
 
     @Resolve
     private void onResolved() {
@@ -65,9 +64,17 @@ public class NewsModel implements Serializable {
             ivPic.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } else {
             if (title != null) tvName.setText(title);
-            if (img != null) Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+            if (description != null) tvDescr.setText(concateDescription());
             else ivPic.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_about));
+            if (img != null) Glide.with(mContext).load(img.getOriginal()).into(ivPic);
+
         }
+    }
+
+    private String concateDescription() {
+        return creatingDate.getDate() + " "
+                + DatetimeUtil.getRuMonth(creatingDate) + " • "
+                + description;
     }
 
     @Click(R.id.cv_project)
@@ -75,7 +82,8 @@ public class NewsModel implements Serializable {
         if (isEmptyPlaceholder) {
             callback.run();
         } else {
-//            SwipeableActivity.start(mContext, this);
+//            Toasty.info(mContext, "Экран не создан").show();
+            SwipeableActivity.start(mContext, PostFragment.class, this);
             Log.d("kek", "clicket");
         }
 

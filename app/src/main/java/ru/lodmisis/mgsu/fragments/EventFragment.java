@@ -11,6 +11,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import at.markushi.ui.RevealColorView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import es.dmoral.toasty.Toasty;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.api.ErrorHandler;
 import ru.lodmisis.mgsu.base.InjectionFragment;
@@ -68,8 +70,8 @@ public class EventFragment extends InjectionFragment {
     LinearLayout llFinishDatetime;
     @BindView(R.id.cv_project)
     CardView cvProject;
-    @BindView(R.id.tv_content)
-    TextView tvContent;
+    @BindView(R.id.wv_content)
+    WebView wvContent;
     @BindView(R.id.skv_loading_indicator)
     SpinKitView skvLoadingIndicator;
 
@@ -115,7 +117,8 @@ public class EventFragment extends InjectionFragment {
             tvStartTime.setText(localDateFormat.format(eventModel.date));
             tvStartDate.setText("" + eventModel.date.getDate());
             tvStartMonth.setText(DatetimeUtil.getRuMonth(eventModel.date));
-            tvContent.setText(eventModel.content);
+            if (eventModel.content != null)
+                wvContent.loadData(eventModel.content, "text/html; charset=utf-8", "utf-8");
         }
 //        if (eventModel.finishDate != null) {
 //            llFinishDatetime.setVisibility(View.VISIBLE);
@@ -157,6 +160,8 @@ public class EventFragment extends InjectionFragment {
         try {
             if (success) {
                 skvLoadingIndicator.setVisibility(View.GONE);
+                tvDescr.setText("Вы зарегистрированы на событие");
+                Toasty.success(getContext(), "Успех!").show();
 
                 final int color = getResources().getColor(R.color.colorAccent);
                 final Point p = getLocationInView(cvProject, fabAttend);

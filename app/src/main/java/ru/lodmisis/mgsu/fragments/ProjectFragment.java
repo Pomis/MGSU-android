@@ -37,13 +37,12 @@ public class ProjectFragment extends Fragment {
     @BindView(R.id.tv_short_descr)
     TextView tvShortDescr;
 
-//    @BindView(R.id.tv_full_description)
-//    TextView tvDescr;
-
     @BindView(R.id.wv_full_description)
     WebView wvDescr;
 
     ProjectModel project;
+    @BindView(R.id.tv_money)
+    TextView tvMoney;
 
     public ProjectFragment setProject(ProjectModel project) {
         this.project = project;
@@ -69,8 +68,8 @@ public class ProjectFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         if (project != null) {
 
-            if (project.need != null && project.need != 0 && project.given != null)
-                dvDonations.setPercentage((float) (project.given / project.need));
+//            if (project.need != null && project.need != 0 && project.given != null)
+            dvDonations.setPercentage(((float) project.given / (float)project.need));
 
             if (project.img != null)
                 Glide.with(getContext()).load(project.img.getOriginal()).into(ivProject);
@@ -81,6 +80,8 @@ public class ProjectFragment extends Fragment {
 
             if (project.content != null)
                 wvDescr.loadData(project.content, "text/html; charset=utf-8", "utf-8");
+
+            tvMoney.setText(project.given + "/" + project.need);
 //                tvDescr.setText(project.content);
         }
 

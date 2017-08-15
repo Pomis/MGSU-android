@@ -1,0 +1,98 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="ru.lodmisis.mgsu.fragments.PostFragment">
+
+
+        <!--Фотка-->
+        <ImageView
+            android:id="@+id/iv_post_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:minHeight="200dp" />
+
+        <!--Заголовок-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:id="@+id/ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_post_photo"
+            android:background="#66000000">
+
+            <LinearLayout
+                android:layout_width="60dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="12dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_post_date"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/tv_post_month"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12dp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_post_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Название новости"
+                android:textColor="@color/colorWhite"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:padding="16dp"
+            android:background="@color/colorWhite"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:id="@+id/tv_post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_title" />
+
+        <WebView
+            android:id="@+id/vw_post_content"
+            android:layout_marginTop="-8dp"
+            android:layout_marginBottom="-8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_post_description" />
+
+        <TextView
+            android:padding="16dp"
+            android:background="@color/colorWhite"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:text="* * *"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vw_post_content" />
+
+    </RelativeLayout>
+
+</ScrollView>
