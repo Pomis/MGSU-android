@@ -69,8 +69,10 @@ dependencies {
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
     compile 'net.yslibrary.simplepreferences:simplepreferences:1.4.0'
     compile 'com.github.markushi:android-ui:1.2'
+    compile "org.projectlombok:lombok:1.16.16"
     testCompile 'junit:junit:4.12'
     annotationProcessor 'net.yslibrary.simplepreferences:simplepreferences-processor:1.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
 }

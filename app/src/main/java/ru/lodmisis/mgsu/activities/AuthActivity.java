@@ -8,6 +8,8 @@ import ru.lodmisis.mgsu.R;
 
 public class AuthActivity extends AppCompatActivity {
 
+    Runnable callback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,5 +19,15 @@ public class AuthActivity extends AppCompatActivity {
         } else {
             setContentView(R.layout.activity_auth);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (callback != null) callback.run();
+        else super.onBackPressed();
+    }
+
+    public void setOnBackPressedListener(Runnable callback) {
+        this.callback = callback;
     }
 }

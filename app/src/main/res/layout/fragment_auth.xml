@@ -9,68 +9,187 @@
         android:id="@+id/piv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
         android:src="@drawable/background_slon" />
 
+    <!--Контролы регистрации-->
+    <LinearLayout
+        android:id="@+id/ll_reg"
+        android:alpha="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="190dp"
+        android:orientation="vertical">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/met_date_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="32dp"
+            android:hint="Дата рождения"
+            android:inputType="date"
+            android:maxLength="10"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Дата рождения"
+            app:met_iconLeft="@drawable/ic_calendar"
+            app:met_iconPadding="0dp"
+            app:met_primaryColor="@color/colorWhite"
+            app:met_singleLineEllipsis="true"
+            app:met_textColor="@color/colorWhite"
+            app:met_textColorHint="@color/colorWhite"
+            app:met_underlineColor="@color/colorWhite" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/met_date_graduate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="-20dp"
+            android:hint="Год выпуска"
+            android:inputType="date"
+            android:maxLength="4"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Год выпуска"
+            app:met_iconLeft="@drawable/ic_calendar"
+            app:met_iconPadding="0dp"
+            app:met_primaryColor="@color/colorWhite"
+            app:met_singleLineEllipsis="true"
+            app:met_textColor="@color/colorWhite"
+            app:met_textColorHint="@color/colorWhite"
+            app:met_underlineColor="@color/colorWhite" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/met_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="-20dp"
+            android:hint="Номер телефона"
+            android:inputType="phone"
+            android:maxLength="4"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Номер телефона"
+            app:met_iconLeft="@drawable/ic_launcher"
+            app:met_iconPadding="0dp"
+            app:met_primaryColor="@color/colorWhite"
+            app:met_singleLineEllipsis="true"
+            app:met_textColor="@color/colorWhite"
+            app:met_textColorHint="@color/colorWhite"
+            app:met_underlineColor="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/b_submit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/background_ghost_button"
+            android:foreground="?android:selectableItemBackground"
+            android:text="Продолжить"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+
     <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="140dp"
         android:scaleType="fitCenter"
         android:src="@drawable/logo" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/met_login"
+    <!--Контролы авторизации-->
+    <LinearLayout
+        android:id="@+id/ll_auth"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="32dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="230dp"
-        android:hint="Логин"
-        android:textColor="@color/colorWhite"
-        app:met_baseColor="@color/colorPrimaryDark"
-        app:met_floatingLabel="highlight"
-        app:met_floatingLabelText="Логин"
-        app:met_iconLeft="@drawable/ic_login"
-        app:met_iconPadding="0dp"
-        app:met_primaryColor="@color/colorWhite"
-        app:met_singleLineEllipsis="true"
-        app:met_textColor="@color/colorWhite"
-        app:met_textColorHint="@color/colorWhite"
-        app:met_underlineColor="@color/colorWhite" />
+        android:orientation="vertical">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/met_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:inputType="textPassword"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="290dp"
-        android:hint="Пароль"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorWhite"
-        app:met_baseColor="@color/colorPrimaryDark"
-        app:met_floatingLabel="highlight"
-        app:met_floatingLabelText="Пароль"
-        app:met_iconLeft="@drawable/ic_password"
-        app:met_iconPadding="0dp"
-        app:met_primaryColor="@color/colorWhite"
-        app:met_singleLineEllipsis="true"
-        app:met_textColor="@color/colorWhite"
-        app:met_textColorHint="@color/colorWhite"
-        app:met_underlineColor="@color/colorWhite" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/met_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="32dp"
+            android:hint="E-mail"
+            android:textColor="@color/colorWhite"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Логин"
+            app:met_iconLeft="@drawable/ic_login"
+            app:met_iconPadding="0dp"
+            app:met_primaryColor="@color/colorWhite"
+            app:met_singleLineEllipsis="true"
+            app:met_textColor="@color/colorWhite"
+            app:met_textColorHint="@color/colorWhite"
+            app:met_underlineColor="@color/colorWhite" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/met_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="-20dp"
+            android:hint="Пароль"
+            android:inputType="textPassword"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            app:met_baseColor="@color/colorPrimaryDark"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Пароль"
+            app:met_iconLeft="@drawable/ic_password"
+            app:met_iconPadding="0dp"
+            app:met_primaryColor="@color/colorWhite"
+            app:met_singleLineEllipsis="true"
+            app:met_textColor="@color/colorWhite"
+            app:met_textColorHint="@color/colorWhite"
+            app:met_underlineColor="@color/colorWhite" />
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/b_login"
-        android:layout_marginTop="380dp"
-        android:text="Войти"
-        android:layout_marginLeft="32dp"
-        android:clickable="true"
-        android:foreground="?android:selectableItemBackground"
-        android:layout_marginRight="32dp"
-        android:textColor="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/background_ghost_button"/>
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="380dp"
+        android:background="@drawable/background_ghost_button"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:text="Войти"
+        android:textColor="@color/colorWhite" />
+
+    <Button
+        android:id="@+id/b_reg"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="430dp"
+        android:background="@color/colorTransparent"
+        android:foreground="?android:selectableItemBackground"
+        android:text="Регистрация"
+        android:textColor="@color/colorWhite" />
+
 
 </RelativeLayout>
