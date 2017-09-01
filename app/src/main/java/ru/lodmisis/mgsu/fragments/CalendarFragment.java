@@ -61,7 +61,7 @@ public class CalendarFragment extends InjectionFragment {
     }
 
     private void updateTitle() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLLL YYYY", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLLL yyyy", Locale.getDefault());
         getActivity().setTitle("Cобытия за " + dateFormat.format(new Date()));
     }
 
@@ -155,7 +155,9 @@ public class CalendarFragment extends InjectionFragment {
 
     private void drawLists() {
         phvEvents.addView(new TimeLineStartModel());
-        eventModels.forEach(eventModel -> phvEvents.addView(eventModel));
+        for (EventModel eventModel : eventModels) {
+            phvEvents.addView(eventModel);
+        }
         phvEvents.addView(new TimelineEndModel());
     }
 }

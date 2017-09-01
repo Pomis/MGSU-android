@@ -4,17 +4,22 @@ package ru.lodmisis.mgsu.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.github.ybq.android.spinkit.SpinKitView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.lodmisis.mgsu.R;
 import ru.lodmisis.mgsu.canvas.DonationView;
 import ru.lodmisis.mgsu.viewmodels.ProjectModel;
@@ -24,6 +29,12 @@ import ru.lodmisis.mgsu.viewmodels.ProjectModel;
  * A simple {@link Fragment} subclass.
  */
 public class ProjectFragment extends Fragment {
+
+    @BindView(R.id.skv_loading_indicator)
+    SpinKitView skvIndicator;
+
+    @BindView(R.id.b_donate)
+    Button bDonate;
 
     @BindView(R.id.dv_donations)
     DonationView dvDonations;
@@ -84,7 +95,41 @@ public class ProjectFragment extends Fragment {
             tvMoney.setText(project.given + "/" + project.need);
 //                tvDescr.setText(project.content);
         }
+    }
 
+    @OnClick(R.id.b_donate)
+    void initDonate() {
+        skvIndicator.setVisibility(View.VISIBLE);
+        bDonate.setVisibility(View.GONE);
+        Log.d("kek", "http://185.189.13.148:4000/project/"+project.id);
+        wvDescr.getSettings().setJavaScriptEnabled(true);
+        wvDescr.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+//                wvDescr.loadUrl
+//                        ("javascript:document.getElementsByClassName('donation-form')[0]" +
+//                                ".scrollIntoView();");
+                skvIndicator.setVisibility(View.GONE);
+                wvDescr.loadUrl("javascript:var kek = document.getElementsByTagName(\"form\")[0].innerHTML;\n" +
+                        "var divs = document.getElementsByTagName(\"div\");\n" +
+                        "for(var i = 0; i < divs.length; i++){\n" +
+                        "   divs[i].innerHTML = \"\";\n" +
+                        "}\n" +
+                        "document.body.innerHTML = kek;" +
+                        "undefined;");
 
+            }
+        });
+        wvDescr.loadUrl("http://185.189.14.156/project/"+project.id);
     }
 }
+
+// RAW JS CODE:
+//var kek = document.getElementsByTagName("form")[0].innerHTML;
+//    var divs = document.getElementsByTagName("div");
+//for(var i = 0; i < divs.length; i++){
+//        divs[i].innerHTML = "";
+//        }
+//        document.body.innerHTML = kek;
+//  undefined;

@@ -2,6 +2,7 @@ package ru.lodmisis.mgsu;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 
@@ -25,6 +26,8 @@ import ru.lodmisis.mgsu.fragments.ErrorFragment;
 
 public class App extends Application {
 
+
+
     static private Realm realm;
     static private Endpoints endowmentService;
     static private SettingsPrefs settingsPrefs;
@@ -37,6 +40,11 @@ public class App extends Application {
         initRealm(this);
         initRetrofit(this);
         initErrorHandler(this);
+        initVectorDrawable();
+    }
+
+    private void initVectorDrawable() {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     private static void initRetrofit(Context context) {

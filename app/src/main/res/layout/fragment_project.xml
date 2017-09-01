@@ -51,7 +51,7 @@
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:paddingTop="40dp"
-                    android:textAlignment="center"
+                    android:gravity="center_horizontal"
                     android:textAllCaps="true"
                     android:textColor="@color/titleColor"
                     tools:text="Название проекта" />
@@ -63,13 +63,13 @@
                     android:layout_below="@id/tv_name"
                     android:layout_margin="8dp"
                     android:maxLines="2"
-                    android:textAlignment="center"
+                    android:gravity="center_horizontal"
                     tools:text="Короткое описание" />
 
                 <TextView
                     android:id="@+id/tv_money"
                     android:layout_width="match_parent"
-                    android:textAlignment="center"
+                    android:gravity="center_horizontal"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/dv_donations"/>
 
@@ -102,14 +102,26 @@
         <!--android:paddingLeft="8dp"-->
         <!--android:paddingRight="8dp"-->
         <!--android:textColor="@color/titleColor" />-->
+        <include layout="@layout/element_indicator" android:visibility="gone" />
 
         <WebView
             android:background="@color/colorWhite"
             android:id="@+id/wv_full_description"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
             android:paddingLeft="8dp"
             android:paddingRight="8dp" />
+
+        <Button
+            android:id="@+id/b_donate"
+            android:background="@color/colorWhite"
+            android:textColor="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:text="Поддержать проект"
+            android:layout_height="wrap_content" />
+
+
 
     </LinearLayout>
 </ScrollView>

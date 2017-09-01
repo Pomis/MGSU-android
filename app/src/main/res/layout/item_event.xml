@@ -17,7 +17,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="22"
-            android:textAlignment="center"
+            android:gravity="center_horizontal"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp" />
 
@@ -26,29 +26,28 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="-8dp"
-            android:gravity="center"
             android:text="июля"
-            android:textAlignment="center"
+            android:gravity="center_horizontal"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="12dp" />
     </LinearLayout>
 
 
     <View
-        android:layout_width="40dp"
+        android:layout_width="5dp"
+        android:layout_marginLeft="8.5dp"
         android:layout_height="match_parent"
         android:background="@drawable/background_timeline" />
 
     <View
         android:id="@+id/v_event"
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="-40dp"
+        android:layout_marginLeft="-12.5dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:background="@drawable/background_timed_event" />
 
 
     <LinearLayout
-        android:layout_marginLeft="-8dp"
         android:layout_marginRight="8dp"
         android:orientation="vertical"
         android:layout_width="wrap_content"

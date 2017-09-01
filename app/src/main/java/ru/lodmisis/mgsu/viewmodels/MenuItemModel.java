@@ -81,7 +81,11 @@ public class MenuItemModel {
     void onClick() {
         try {
             if (!selected) {
-                drawerActivity.phvMenu.getAllViewResolvers().stream().filter(o -> o instanceof MenuItemModel).forEach(o -> ((MenuItemModel) o).selected = false);
+                for (Object item : drawerActivity.phvMenu.getAllViewResolvers()) {
+                    if (item instanceof MenuItemModel) {
+                        ((MenuItemModel)item).selected = false;
+                    }
+                }
                 selected = true;
                 drawerActivity.setTitle(text);
                 drawerActivity.handleFragment(fragmentClass);
